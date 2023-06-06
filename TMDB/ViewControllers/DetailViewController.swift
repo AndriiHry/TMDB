@@ -22,12 +22,14 @@ class DetailViewController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = true
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.tabBar.isHidden = false
     }
+
     
 }

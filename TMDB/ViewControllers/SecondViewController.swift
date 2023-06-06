@@ -30,7 +30,7 @@ class SecondViewController: UIViewController {
                 self.myData += try await netwotkController.loadNextPage()
                 self.favoriteTableView.reloadData()
             } catch {
-                print(error)
+                print("Error load data\(error)")
             }
         }
     }

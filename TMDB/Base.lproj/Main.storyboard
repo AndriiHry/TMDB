@@ -131,7 +131,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="khQ-zw-ztq">
-                                <rect key="frame" x="16" y="20" width="343" height="627"/>
+                                <rect key="frame" x="16" y="36" width="343" height="615"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -143,11 +143,9 @@
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstItem="7YA-AQ-wEG" firstAttribute="trailing" secondItem="khQ-zw-ztq" secondAttribute="trailing" constant="16" id="9rn-MH-tXI"/>
-                            <constraint firstItem="khQ-zw-ztq" firstAttribute="centerX" secondItem="bIQ-jH-dWs" secondAttribute="centerX" id="L2d-UZ-H2Z"/>
                             <constraint firstItem="khQ-zw-ztq" firstAttribute="leading" secondItem="7YA-AQ-wEG" secondAttribute="leading" constant="16" id="PkJ-07-4Q7"/>
-                            <constraint firstItem="khQ-zw-ztq" firstAttribute="top" secondItem="7YA-AQ-wEG" secondAttribute="top" id="Tdv-89-cKY"/>
-                            <constraint firstItem="khQ-zw-ztq" firstAttribute="centerY" secondItem="bIQ-jH-dWs" secondAttribute="centerY" id="k5b-oy-zhE"/>
-                            <constraint firstItem="7YA-AQ-wEG" firstAttribute="bottom" secondItem="khQ-zw-ztq" secondAttribute="bottom" constant="20" id="oIc-oX-Gi4"/>
+                            <constraint firstItem="khQ-zw-ztq" firstAttribute="top" secondItem="7YA-AQ-wEG" secondAttribute="top" constant="16" id="Tdv-89-cKY"/>
+                            <constraint firstItem="7YA-AQ-wEG" firstAttribute="bottom" secondItem="khQ-zw-ztq" secondAttribute="bottom" constant="16" id="oIc-oX-Gi4"/>
                         </constraints>
                     </view>
                     <connections>
