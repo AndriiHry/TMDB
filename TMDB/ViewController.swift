@@ -7,15 +7,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("my first coomit at GitHun")
-
-    }
-
-
-}
+//class ViewController: UIViewController {
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        print("my first coomit at GitHun")
+//
+//    }
+//
+//
+//}
 
