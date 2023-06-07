@@ -50,13 +50,13 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 116
+        return 96
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         detailVC.overview = myData[indexPath.row].overview
-        detailVC.favorTitle = myData[indexPath.row].title
+        detailVC.favorTitle = myData[indexPath.row].nameTitle
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

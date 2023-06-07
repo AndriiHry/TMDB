@@ -16,9 +16,9 @@ class MovieTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func configure(item: Result){
-        self.favoriteTitle.text = item.title
-        self.favoriteImage.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w1280\(item.backdropPath)"), completed: nil)
+    func configure(item: Result) {
+        self.favoriteTitle.text = item.nameTitle
+        self.favoriteImage.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/original\(item.backdropPath)"), completed: nil)
     }
     
 }

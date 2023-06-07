@@ -25,16 +25,32 @@ struct Result: Codable {
     let adult: Bool
     let backdropPath: String
     let id: Int
-    let title: String
-    let originalLanguage: String//OriginalLanguage
-    let originalTitle, overview, posterPath: String
+    let title: String?
+    let originalLanguage: String
+    let originalTitle: String?
+    let overview, posterPath: String
     let mediaType: MediaType
     let genreIDS: [Int]
     let popularity: Double
-    let releaseDate: String
-    let video: Bool
+    let releaseDate: String?
+    let video: Bool?
     let voteAverage: Double
     let voteCount: Int
+    let name, originalName, firstAirDate: String?
+    let originCountry: [String]?
+    
+    var nameTitle: String {
+        return title ?? name ?? ""
+    }
+    var origTitle: String {
+        return originalTitle ?? originalName ?? ""
+    }
+    var airReleaseDate: String {
+        return releaseDate ?? firstAirDate ?? ""
+    }
+    var isVideo: Bool {
+        return video ?? false
+    }
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -51,16 +67,14 @@ struct Result: Codable {
         case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case name
+        case originalName = "original_name"
+        case firstAirDate = "first_air_date"
+        case originCountry = "origin_country"
     }
 }
 
 enum MediaType: String, Codable {
     case movie = "movie"
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case fi = "fi"
-    case fr = "fr"
-    case pl = "pl"
+    case tv = "tv"
 }
