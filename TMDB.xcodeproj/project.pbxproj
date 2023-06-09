@@ -18,8 +18,8 @@
 		4E5ECE852A2FB8DB001B90DE /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5ECE832A2FB8DB001B90DE /* MovieTableViewCell.swift */; };
 		4E5ECE862A2FB8DB001B90DE /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E5ECE842A2FB8DB001B90DE /* MovieTableViewCell.xib */; };
 		4E5ECE892A2FBDC1001B90DE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5ECE882A2FBDC1001B90DE /* SDWebImage */; };
-		4E894B162A2F2652004D4DDA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E894B152A2F2652004D4DDA /* FirstViewController.swift */; };
-		4E894B182A2F2B9A004D4DDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E894B172A2F2B9A004D4DDA /* SecondViewController.swift */; };
+		4E894B162A2F2652004D4DDA /* HeadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E894B152A2F2652004D4DDA /* HeadViewController.swift */; };
+		4E894B182A2F2B9A004D4DDA /* FavoritsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E894B172A2F2B9A004D4DDA /* FavoritsViewController.swift */; };
 		4E894B1A2A2F2BE7004D4DDA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E894B192A2F2BE7004D4DDA /* DetailViewController.swift */; };
 		4EB5770B2A30541C00C1C13B /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB577092A30541C00C1C13B /* MovieCollectionViewCell.swift */; };
 		4EB5770C2A30541C00C1C13B /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EB5770A2A30541C00C1C13B /* MovieCollectionViewCell.xib */; };
@@ -38,8 +38,8 @@
 		4E5ECE7F2A2F980E001B90DE /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		4E5ECE832A2FB8DB001B90DE /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		4E5ECE842A2FB8DB001B90DE /* MovieTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
-		4E894B152A2F2652004D4DDA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		4E894B172A2F2B9A004D4DDA /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		4E894B152A2F2652004D4DDA /* HeadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadViewController.swift; sourceTree = "<group>"; };
+		4E894B172A2F2B9A004D4DDA /* FavoritsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsViewController.swift; sourceTree = "<group>"; };
 		4E894B192A2F2BE7004D4DDA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4EB577092A30541C00C1C13B /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EB5770A2A30541C00C1C13B /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -129,8 +129,8 @@
 		4E894B142A2F2639004D4DDA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E894B152A2F2652004D4DDA /* FirstViewController.swift */,
-				4E894B172A2F2B9A004D4DDA /* SecondViewController.swift */,
+				4E894B152A2F2652004D4DDA /* HeadViewController.swift */,
+				4E894B172A2F2B9A004D4DDA /* FavoritsViewController.swift */,
 				4E894B192A2F2BE7004D4DDA /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
@@ -223,8 +223,8 @@
 				4E36A1212A2F108300BB5CE4 /* SceneDelegate.swift in Sources */,
 				4E894B1A2A2F2BE7004D4DDA /* DetailViewController.swift in Sources */,
 				4EB5770B2A30541C00C1C13B /* MovieCollectionViewCell.swift in Sources */,
-				4E894B182A2F2B9A004D4DDA /* SecondViewController.swift in Sources */,
-				4E894B162A2F2652004D4DDA /* FirstViewController.swift in Sources */,
+				4E894B182A2F2B9A004D4DDA /* FavoritsViewController.swift in Sources */,
+				4E894B162A2F2652004D4DDA /* HeadViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

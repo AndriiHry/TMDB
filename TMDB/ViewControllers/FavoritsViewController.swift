@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class FavoritsViewController: UIViewController {
 
     @IBOutlet var favoriteTableView: UITableView!
     
@@ -27,7 +27,7 @@ class SecondViewController: UIViewController {
     private func loadData() {
         Task.init {
             do {
-                self.myData += try await netwotkController.loadNextPage()
+                self.myData = try await netwotkController.loadData(page: 8)
                 self.favoriteTableView.reloadData()
             } catch {
                 print("Error load data\(error)")
@@ -36,7 +36,7 @@ class SecondViewController: UIViewController {
     }
 
 }
-extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
+extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myData.count

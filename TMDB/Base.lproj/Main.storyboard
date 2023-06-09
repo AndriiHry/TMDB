@@ -5,27 +5,19 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--FirstViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FirstViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="FirstViewController" customClass="FirstViewController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HeadViewController" title="HeadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="FirstViewController" customClass="HeadViewController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vaT-13-BUV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar multipleTouchEnabled="YES" contentMode="center" barStyle="blackTranslucent" searchBarStyle="minimal" placeholder="search" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-RL-Znw">
-                                <rect key="frame" x="0.0" y="103" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="qu1-TW-vXZ"/>
-                                </connections>
-                            </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n1c-p6-k66">
-                                <rect key="frame" x="125.5" y="72" width="124" height="32"/>
+                                <rect key="frame" x="125.5" y="64" width="124" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="n1c-p6-k66" secondAttribute="height" multiplier="12:3" id="U1C-NQ-oz9"/>
                                 </constraints>
@@ -33,51 +25,47 @@
                                     <segment title="Movies"/>
                                     <segment title="Serials"/>
                                 </segments>
-                            </segmentedControl>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="INg-Uc-6gg">
-                                <rect key="frame" x="16" y="167" width="343" height="451"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nHu-fh-V2f">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MainCollectionCell" id="ZKC-1s-Pvx">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FB5-bV-twQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="0kn-wl-yRY"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3gJ-0Q-Cfb"/>
-                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="njN-Cu-Cyk"/>
+                                    <action selector="SegmentCntrAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="dbB-DI-J5b"/>
                                 </connections>
-                            </collectionView>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="woF-Xw-1kO">
+                                <rect key="frame" x="0.0" y="95" width="375" height="572"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="b29-8E-lfW">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b29-8E-lfW" id="Cjb-j0-3px">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Pgt-SW-cL9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Rqv-3k-0Ig"/>
+                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="GeZ-Fn-v1N"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BPv-0w-Jn0"/>
                         <color key="backgroundColor" red="0.20000001789999999" green="0.2588235438" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fXf-RL-Znw" firstAttribute="leading" secondItem="BPv-0w-Jn0" secondAttribute="leading" id="0co-wE-437"/>
-                            <constraint firstItem="n1c-p6-k66" firstAttribute="centerX" secondItem="vaT-13-BUV" secondAttribute="centerX" id="CaH-Ic-gsv"/>
-                            <constraint firstItem="BPv-0w-Jn0" firstAttribute="trailing" secondItem="INg-Uc-6gg" secondAttribute="trailing" constant="16" id="Q2V-GA-FXs"/>
-                            <constraint firstItem="INg-Uc-6gg" firstAttribute="top" secondItem="fXf-RL-Znw" secondAttribute="bottom" constant="8" id="cjR-5H-fnt"/>
-                            <constraint firstItem="INg-Uc-6gg" firstAttribute="leading" secondItem="BPv-0w-Jn0" secondAttribute="leading" constant="16" id="kNY-3P-g1U"/>
-                            <constraint firstItem="fXf-RL-Znw" firstAttribute="trailing" secondItem="BPv-0w-Jn0" secondAttribute="trailing" id="lwL-Bo-8kD"/>
-                            <constraint firstItem="fXf-RL-Znw" firstAttribute="top" secondItem="n1c-p6-k66" secondAttribute="bottom" id="s3Y-P5-yem"/>
-                            <constraint firstItem="n1c-p6-k66" firstAttribute="top" secondItem="BPv-0w-Jn0" secondAttribute="top" constant="8" id="wjh-dL-EXZ"/>
-                            <constraint firstItem="INg-Uc-6gg" firstAttribute="bottom" secondItem="BPv-0w-Jn0" secondAttribute="bottom" id="zLl-P0-WWV"/>
+                            <constraint firstItem="woF-Xw-1kO" firstAttribute="leading" secondItem="BPv-0w-Jn0" secondAttribute="leading" id="8fX-oJ-Yw2"/>
+                            <constraint firstAttribute="bottom" secondItem="woF-Xw-1kO" secondAttribute="bottom" id="G18-Gc-UZQ"/>
+                            <constraint firstItem="n1c-p6-k66" firstAttribute="top" secondItem="BPv-0w-Jn0" secondAttribute="top" id="GZ3-NY-3QW"/>
+                            <constraint firstItem="woF-Xw-1kO" firstAttribute="top" secondItem="n1c-p6-k66" secondAttribute="bottom" id="kRp-ct-AnF"/>
+                            <constraint firstItem="n1c-p6-k66" firstAttribute="centerX" secondItem="vaT-13-BUV" secondAttribute="centerX" id="o8v-sI-8Bm"/>
+                            <constraint firstItem="BPv-0w-Jn0" firstAttribute="trailing" secondItem="woF-Xw-1kO" secondAttribute="trailing" id="qFS-OW-93i"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="NCe-Le-DmO"/>
+                    <navigationItem key="navigationItem" title="Top Movies" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="NCe-Le-DmO"/>
                     <connections>
-                        <outlet property="mainCollectionView" destination="INg-Uc-6gg" id="wjt-fn-QT6"/>
+                        <outlet property="segmentControll" destination="n1c-p6-k66" id="634-1W-ie2"/>
+                        <outlet property="tableView" destination="woF-Xw-1kO" id="2zr-mf-jsn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -87,7 +75,7 @@
         <!--SecondViewController-->
         <scene sceneID="yiL-kE-dj0">
             <objects>
-                <tableViewController storyboardIdentifier="SecondViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eQf-v2-k6y" userLabel="SecondViewController" customClass="SecondViewController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritsViewController" title="FavoritsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eQf-v2-k6y" userLabel="SecondViewController" customClass="FavoritsViewController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="BFX-FD-IcN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,7 +89,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.38836582149999999" green="0.76860342069999998" blue="0.39608719720000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -151,13 +138,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rk-Fc-BSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5916" y="335.98200899550227"/>
+            <point key="canvasLocation" x="5871" y="336"/>
         </scene>
-        <!--Item-->
+        <!--in the Top-->
         <scene sceneID="yLP-nI-Zqm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" hidesBarsOnSwipe="YES" id="bih-Bf-Lsg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="4iz-Bv-IUf"/>
+                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsOnSwipe="YES" id="bih-Bf-Lsg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="in the Top" image="popcorn.fill" catalog="system" id="4iz-Bv-IUf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fe7-7f-0SI">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -175,11 +162,11 @@
             </objects>
             <point key="canvasLocation" x="4488.8000000000002" y="2.2488755622188905"/>
         </scene>
-        <!--Item-->
+        <!--Favorites-->
         <scene sceneID="BiH-hj-GhO">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="nKj-Gk-IDh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Z77-NE-apz"/>
+                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsOnSwipe="YES" id="nKj-Gk-IDh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorites" image="star.fill" catalog="system" id="Z77-NE-apz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ESw-RT-rxy">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -197,12 +184,14 @@
         <!--Tab Bar Controller-->
         <scene sceneID="9T2-Yw-iJJ">
             <objects>
-                <tabBarController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="LZZ-21-MVP" sceneMemberID="viewController">
+                <tabBarController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="LZZ-21-MVP" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <tabBar key="tabBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5UW-ev-rYi">
+                    <tabBar key="tabBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="5UW-ev-rYi">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <tabBarAppearance key="standardAppearance" backgroundEffect="systemUltraThinMaterial" stackedItemPositioning="fill" stackedItemWidth="0.0" stackedItemSpacing="0.0"/>
+                        <color key="tintColor" red="0.1176470518" green="0.1176470518" blue="0.1176470518" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial" backgroundImageContentMode="center" stackedItemWidth="0.0"/>
                     </tabBar>
                     <connections>
                         <segue destination="bih-Bf-Lsg" kind="relationship" relationship="viewControllers" id="1nd-6G-7N0"/>
@@ -215,6 +204,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="popcorn.fill" catalog="system" width="102" height="128"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

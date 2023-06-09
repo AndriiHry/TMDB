@@ -18,7 +18,13 @@ class MovieTableViewCell: UITableViewCell {
     }
     func configure(item: Result) {
         self.favoriteTitle.text = item.nameTitle
-        self.favoriteImage.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/original\(item.backdropPath)"), completed: nil)
+        
+        let urlString = "https://image.tmdb.org/t/p/original\(item.backdropPath ?? "")"
+        if item.backdropPath == nil {
+            self.favoriteImage.image = UIImage(named: "noimage")
+        } else {
+            self.favoriteImage.sd_setImage(with: URL(string: urlString), completed: nil)
+        }
     }
     
 }
