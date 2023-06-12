@@ -10,28 +10,29 @@ import SDWebImage
 
 class HeadViewController: UIViewController {
     
-    //    @IBOutlet var mainCollectionView: UICollectionView!
     @IBOutlet var segmentControll: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var headImage: UIImageView!
-    /// Search controller to help us with filtering items in the table view.
-    private var resultsTableController: ResultsTableController!
+    
+    var resultsTableController: ResultsTableController!
     let netwotkController = NetworkController()
-
     
     var jsnData:[Result] = []
     var typeVideo: String = "movie"
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
+        
         searchControllerSetup()
         
         load()
         
     }
-
-// Load data from URL with network controller
+    
+    // Load data from URL with network controller
     private func load() {
         Task.init {
             do {
@@ -50,9 +51,8 @@ class HeadViewController: UIViewController {
     private func loadSearchData() {
         Task.init {
             do {
-                resultsTableController.searchData = try await netwotkController.searchPage()
+                resultsTableController.searchData = try await self.netwotkController.searchPage()
                 resultsTableController.tableViewSearchResult.reloadData()
-
             } catch {
                 print("Error loading search data: \(error)")
             }
@@ -63,8 +63,8 @@ class HeadViewController: UIViewController {
 // Search controller setup
     func searchControllerSetup() {
         resultsTableController =
-            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
-        resultsTableController.tableView.delegate = resultsTableController
+            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
+        resultsTableController.tableView.delegate = self
         resultsTableController.tableView.dataSource = resultsTableController
         let search = UISearchController(searchResultsController: resultsTableController)
         search.searchBar.delegate = self
@@ -111,19 +111,23 @@ class HeadViewController: UIViewController {
         headImage.sd_setImage(with: imageUrl)
     }
     
-    
 }
 
 
 // Search results
 extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        netwotkController.query = searchController.searchBar.text ?? ""
-        self.loadSearchData()
+        let searchText =
+        searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces)
+        let searchItems = searchText.replacingOccurrences(of: " ", with: "%20")
+        self.netwotkController.query = searchItems
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
+            self.loadSearchData()
+        })
+        
         print(netwotkController.query)
-
     }
-
 }
 
 // TableView

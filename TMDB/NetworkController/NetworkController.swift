@@ -16,7 +16,9 @@ class NetworkController {
     var pageLoaded: Int = 1
     
     func loadPage(page: Int = 1) async throws -> [Result] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/trending/\(typeVideo)/day?api_key=\(apiKey)&page=\(page)") else {
+        guard let url = URL(string: "https://api.themoviedb.org/3/trending/\(typeVideo)/day?api_key=\(apiKey)&page=\(page)")
+        else
+        {
             print("Errore Load URL")
             return []
         }
@@ -28,14 +30,17 @@ class NetworkController {
     }
     
     func loadNextPage() async throws -> [Result] {
-        defer {
+        defer
+        {
             pageLoaded += 1
         }
         return try await loadPage(page: pageLoaded)
     }
     
     func searchPage() async throws -> [Result] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)") else {
+        guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)")
+        else
+        {
             print("Errore Search URL")
             return []
         }
