@@ -18,7 +18,9 @@ class FavoritsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
         favoriteTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "FavoritesTableCell")
+        
         loadData()
     }
 
@@ -27,7 +29,7 @@ class FavoritsViewController: UIViewController {
     private func loadData() {
         Task.init {
             do {
-                self.myData = try await netwotkController.loadData(page: 8)
+                self.myData = try await netwotkController.loadPage(page: 8)
                 self.favoriteTableView.reloadData()
             } catch {
                 print("Error load data\(error)")
@@ -67,9 +69,23 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 1, y: 0.5)
+        cell.transform = CGAffineTransform(translationX:
+                                            cell.contentView.frame.width,
+                                           y: cell.contentView.frame.height/1.5)
+        cell.alpha = 0.25
+        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+            cell.alpha = 1
+            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            cell.transform = CGAffineTransform(translationX:
+                                                cell.contentView.frame.width,
+                                               y: cell.contentView.frame.height)
+        }
+    }
+
+    
+    
 }
-
-
-
     
 

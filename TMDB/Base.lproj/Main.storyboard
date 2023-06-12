@@ -29,12 +29,30 @@
                                     <action selector="SegmentCntrAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="dbB-DI-J5b"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="woF-Xw-1kO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="woF-Xw-1kO" customClass="ParallaxTableView" customModule="TMDB" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="95" width="375" height="572"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="mdT-VD-vq9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-xc-eNy">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="300" identifier="height" id="k2G-tk-b4M"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="LeN-xc-eNy" firstAttribute="leading" secondItem="mdT-VD-vq9" secondAttribute="leading" id="38b-Dh-R9o"/>
+                                        <constraint firstAttribute="trailing" secondItem="LeN-xc-eNy" secondAttribute="trailing" id="CT5-Jk-DgL"/>
+                                        <constraint firstAttribute="bottom" secondItem="LeN-xc-eNy" secondAttribute="bottom" identifier="bottom" id="UmM-dr-BQB"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="b29-8E-lfW">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="350" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b29-8E-lfW" id="Cjb-j0-3px">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -62,8 +80,9 @@
                             <constraint firstItem="BPv-0w-Jn0" firstAttribute="trailing" secondItem="woF-Xw-1kO" secondAttribute="trailing" id="qFS-OW-93i"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Top Movies" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="NCe-Le-DmO"/>
+                    <navigationItem key="navigationItem" title="Top Movies" largeTitleDisplayMode="never" id="NCe-Le-DmO"/>
                     <connections>
+                        <outlet property="headImage" destination="LeN-xc-eNy" id="0lU-P2-6Sk"/>
                         <outlet property="segmentControll" destination="n1c-p6-k66" id="634-1W-ie2"/>
                         <outlet property="tableView" destination="woF-Xw-1kO" id="2zr-mf-jsn"/>
                     </connections>
@@ -71,6 +90,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5157.6000000000004" y="1.3493253373313345"/>
+        </scene>
+        <!--Results Table Controller-->
+        <scene sceneID="g9i-ht-wQV">
+            <objects>
+                <tableViewController storyboardIdentifier="ResultsTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iUS-vu-AGp" customClass="ResultsTableController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="14J-Dg-6tf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" id="hrb-mH-Z8p">
+                                <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hrb-mH-Z8p" id="Hzp-dC-dw4">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iUS-vu-AGp" id="xnN-XX-SA3"/>
+                            <outlet property="delegate" destination="iUS-vu-AGp" id="hAr-Xe-4aC"/>
+                            <outlet property="prefetchDataSource" destination="iUS-vu-AGp" id="SoH-fv-Cjg"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="tableViewSearchResult" destination="14J-Dg-6tf" id="owK-X9-RnQ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1OD-sK-iv5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5838" y="1"/>
         </scene>
         <!--SecondViewController-->
         <scene sceneID="yiL-kE-dj0">
@@ -138,12 +189,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rk-Fc-BSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5871" y="336"/>
+            <point key="canvasLocation" x="5839" y="674"/>
         </scene>
         <!--in the Top-->
         <scene sceneID="yLP-nI-Zqm">
             <objects>
-                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsOnSwipe="YES" id="bih-Bf-Lsg" sceneMemberID="viewController">
+                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsOnSwipe="YES" hidesBarsWhenKeyboardAppears="YES" id="bih-Bf-Lsg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="in the Top" image="popcorn.fill" catalog="system" id="4iz-Bv-IUf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fe7-7f-0SI">
@@ -165,7 +216,7 @@
         <!--Favorites-->
         <scene sceneID="BiH-hj-GhO">
             <objects>
-                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsOnSwipe="YES" id="nKj-Gk-IDh" sceneMemberID="viewController">
+                <navigationController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBarsWhenKeyboardAppears="YES" hidesBarsWhenVerticallyCompact="YES" id="nKj-Gk-IDh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="star.fill" catalog="system" id="Z77-NE-apz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ESw-RT-rxy">
@@ -187,11 +238,12 @@
                 <tabBarController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="LZZ-21-MVP" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <tabBar key="tabBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="5UW-ev-rYi">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5UW-ev-rYi">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.1176470518" green="0.1176470518" blue="0.1176470518" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial" backgroundImageContentMode="center" stackedItemWidth="0.0"/>
+                        <color key="tintColor" red="0.25098040700000002" green="0.32549020649999999" blue="0.39215683940000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial" backgroundImageContentMode="center" stackedItemPositioning="automatic" stackedItemWidth="0.0"/>
                     </tabBar>
                     <connections>
                         <segue destination="bih-Bf-Lsg" kind="relationship" relationship="viewControllers" id="1nd-6G-7N0"/>

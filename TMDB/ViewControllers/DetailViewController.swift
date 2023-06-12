@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
+        
     @IBOutlet var detailTextView: UITextView!
     var overview = ""
     var favorTitle = ""
@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = favorTitle
+        navigationController?.isNavigationBarHidden = false
         navigationItem.largeTitleDisplayMode = .never
         detailTextView.text = overview
         

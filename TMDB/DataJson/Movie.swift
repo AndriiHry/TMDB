@@ -11,10 +11,12 @@ import Foundation
 struct MovieData: Codable {
     let page: Int
     let results: [Result]
-    let totalPages, totalResults: Int
+    let totalPages: Int
+    let totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case page, results
+        case page
+        case results
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
@@ -28,15 +30,18 @@ struct Result: Codable {
     let title: String?
     let originalLanguage: String
     let originalTitle: String?
-    let overview, posterPath: String
-    let mediaType: MediaType
+    let overview: String
+    let posterPath: String?
+    let mediaType: MediaType?
     let genreIDS: [Int]
     let popularity: Double
     let releaseDate: String?
     let video: Bool?
     let voteAverage: Double
     let voteCount: Int
-    let name, originalName, firstAirDate: String?
+    let name: String?
+    let originalName: String?
+    let firstAirDate: String?
     let originCountry: [String]?
     
     var nameTitle: String {
