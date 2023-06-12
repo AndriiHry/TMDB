@@ -36,6 +36,14 @@ class FavoritsViewController: UIViewController {
             }
         }
     }
+    
+    // Setup Detail VC
+    func showDetail(for data:Result) {
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        detailVC.overview = data.overview
+        detailVC.favorTitle = data.nameTitle
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 
 }
 extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -56,10 +64,7 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.overview = myData[indexPath.row].overview
-        detailVC.favorTitle = myData[indexPath.row].nameTitle
-        navigationController?.pushViewController(detailVC, animated: true)
+        showDetail(for: myData[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

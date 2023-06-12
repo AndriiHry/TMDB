@@ -51,6 +51,7 @@ class HeadViewController: UIViewController {
     private func loadSearchData() {
         Task.init {
             do {
+//                resultsTableController.searchData.removeAll()
                 resultsTableController.searchData = try await self.netwotkController.searchPage()
                 resultsTableController.tableViewSearchResult.reloadData()
             } catch {
@@ -64,8 +65,12 @@ class HeadViewController: UIViewController {
     func searchControllerSetup() {
         resultsTableController =
             self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
-        resultsTableController.tableView.delegate = self
+        resultsTableController.tableView.delegate = resultsTableController
         resultsTableController.tableView.dataSource = resultsTableController
+        resultsTableController.resultDidSelected = { [ weak self ] selectedResult in
+            self?.showDetail(for: selectedResult)
+        }
+        resultsTableController.parentNavigationController = navigationController
         let search = UISearchController(searchResultsController: resultsTableController)
         search.searchBar.delegate = self
         search.searchResultsUpdater = self
@@ -111,8 +116,14 @@ class HeadViewController: UIViewController {
         headImage.sd_setImage(with: imageUrl)
     }
     
+    // Setup Detail VC
+    func showDetail(for data:Result) {
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        detailVC.overview = data.overview
+        detailVC.favorTitle = data.nameTitle
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
-
 
 // Search results
 extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
@@ -121,12 +132,9 @@ extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
         searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces)
         let searchItems = searchText.replacingOccurrences(of: " ", with: "%20")
         self.netwotkController.query = searchItems
-        
         timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
             self.loadSearchData()
         })
-        
-        print(netwotkController.query)
     }
 }
 
@@ -144,10 +152,7 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.overview = jsnData[indexPath.row].overview
-        detailVC.favorTitle = jsnData[indexPath.row].nameTitle
-        navigationController?.pushViewController(detailVC, animated: true)
+        showDetail(for: jsnData[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {

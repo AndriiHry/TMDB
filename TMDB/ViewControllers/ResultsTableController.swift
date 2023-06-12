@@ -10,9 +10,11 @@ import UIKit
 class ResultsTableController: UITableViewController {
     
     @IBOutlet var tableViewSearchResult: UITableView!
-    
+    var parentNavigationController: UINavigationController?
     var searchData:[Result] = []
+    typealias ResultSelected = (Result) -> ()
     
+    var resultDidSelected: ResultSelected?
 }
 
 //: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
@@ -29,10 +31,15 @@ extension ResultsTableController: UITableViewDataSourcePrefetching {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.overview = searchData[indexPath.row].overview
-        detailVC.favorTitle = searchData[indexPath.row].nameTitle
-        navigationController?.pushViewController(detailVC, animated: true)
+        
+        let result = searchData[indexPath.row]
+        resultDidSelected?(result)
+        
+        
+//        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+//        detailVC.overview = searchData[indexPath.row].overview
+//        detailVC.favorTitle = searchData[indexPath.row].nameTitle
+//        parentNavigationController?.pushViewController(detailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
