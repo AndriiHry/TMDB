@@ -24,9 +24,12 @@ class HeadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchControllerSetup()
+        
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
         
-        searchControllerSetup()
+        tableView.register(UINib(nibName: "HeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadTableViewCell")
+        
         
         load()
         
@@ -47,7 +50,6 @@ class HeadViewController: UIViewController {
         }
     }
     
-    
     private func loadSearchData() {
         Task.init {
             do {
@@ -59,7 +61,6 @@ class HeadViewController: UIViewController {
             }
         }
     }
-    
     
 // Search controller setup
     func searchControllerSetup() {
@@ -77,7 +78,6 @@ class HeadViewController: UIViewController {
         search.searchBar.autocapitalizationType = .none
         self.navigationItem.searchController = search
         definesPresentationContext = true
-        
     }
     
 // Segmented controller action setup
@@ -132,7 +132,7 @@ extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
         searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces)
         let searchItems = searchText.replacingOccurrences(of: " ", with: "%20")
         self.netwotkController.query = searchItems
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
             self.loadSearchData()
         })
     }
@@ -145,10 +145,14 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeadTableViewCell", for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
-        cell.textLabel?.text = item.nameTitle
+        cell.configure(item: item)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -177,36 +181,3 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
 }
-
-/*
- // CollectionView
- extension HeadViewController:
- UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
- func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
- return jsnData.count
- }
- 
- func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
- guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionCell", for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
- let item = jsnData[indexPath.item]
- cell.configure(item: item)
- return cell
- }
- 
- func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
- guard let detailVC = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController else { return }
- detailVC.overview = jsnData[indexPath.row].overview
- detailVC.favorTitle = jsnData[indexPath.row].nameTitle
- navigationController?.pushViewController(detailVC, animated: true)
- }
- 
- func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
- let lastIndexPath = indexPaths.last
- let lastIndex = lastIndexPath?.item ?? 0
- let itemCount = collectionView.numberOfItems(inSection: 0)
- if lastIndex >= itemCount - 2 {
- load()
- }
- }
- }
- */

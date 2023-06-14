@@ -10,11 +10,14 @@ import UIKit
 class ResultsTableController: UITableViewController {
     
     @IBOutlet var tableViewSearchResult: UITableView!
+    
     var parentNavigationController: UINavigationController?
+    var resultDidSelected: ResultSelected?
+    
     var searchData:[Result] = []
     typealias ResultSelected = (Result) -> ()
     
-    var resultDidSelected: ResultSelected?
+    
 }
 
 //: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching

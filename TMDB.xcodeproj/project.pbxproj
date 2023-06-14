@@ -25,6 +25,9 @@
 		4E9616452A34745C00C85B4B /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E9616432A34745C00C85B4B /* CollectionTableViewCell.xib */; };
 		4EB5770B2A30541C00C1C13B /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB577092A30541C00C1C13B /* MovieCollectionViewCell.swift */; };
 		4EB5770C2A30541C00C1C13B /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EB5770A2A30541C00C1C13B /* MovieCollectionViewCell.xib */; };
+		4EC8D45A2A3A1D1200B47752 /* HeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8D4582A3A1D1200B47752 /* HeadTableViewCell.swift */; };
+		4EC8D45B2A3A1D1200B47752 /* HeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EC8D4592A3A1D1200B47752 /* HeadTableViewCell.xib */; };
+		4EC8D45D2A3A280C00B47752 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8D45C2A3A280C00B47752 /* Details.swift */; };
 		4EED54042A34EED8005100C1 /* ParallaxTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED54032A34EED8005100C1 /* ParallaxTableView.swift */; };
 		4EED54062A35CB39005100C1 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED54052A35CB39005100C1 /* ResultsTableController.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,9 @@
 		4E9616432A34745C00C85B4B /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionTableViewCell.xib; sourceTree = "<group>"; };
 		4EB577092A30541C00C1C13B /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EB5770A2A30541C00C1C13B /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
+		4EC8D4582A3A1D1200B47752 /* HeadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadTableViewCell.swift; sourceTree = "<group>"; };
+		4EC8D4592A3A1D1200B47752 /* HeadTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadTableViewCell.xib; sourceTree = "<group>"; };
+		4EC8D45C2A3A280C00B47752 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		4EED54032A34EED8005100C1 /* ParallaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxTableView.swift; sourceTree = "<group>"; };
 		4EED54052A35CB39005100C1 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				4E5ECE7C2A2F9583001B90DE /* Movie.swift */,
+				4EC8D45C2A3A280C00B47752 /* Details.swift */,
 			);
 			path = DataJson;
 			sourceTree = "<group>";
@@ -122,6 +129,8 @@
 				4E5ECE832A2FB8DB001B90DE /* MovieTableViewCell.swift */,
 				4E5ECE842A2FB8DB001B90DE /* MovieTableViewCell.xib */,
 				4EED54032A34EED8005100C1 /* ParallaxTableView.swift */,
+				4EC8D4582A3A1D1200B47752 /* HeadTableViewCell.swift */,
+				4EC8D4592A3A1D1200B47752 /* HeadTableViewCell.xib */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -214,6 +223,7 @@
 			files = (
 				4EB5770C2A30541C00C1C13B /* MovieCollectionViewCell.xib in Resources */,
 				4E9616452A34745C00C85B4B /* CollectionTableViewCell.xib in Resources */,
+				4EC8D45B2A3A1D1200B47752 /* HeadTableViewCell.xib in Resources */,
 				4E36A12B2A2F108400BB5CE4 /* LaunchScreen.storyboard in Resources */,
 				4E36A1282A2F108400BB5CE4 /* Assets.xcassets in Resources */,
 				4E5ECE862A2FB8DB001B90DE /* MovieTableViewCell.xib in Resources */,
@@ -239,6 +249,8 @@
 				4EB5770B2A30541C00C1C13B /* MovieCollectionViewCell.swift in Sources */,
 				4E894B182A2F2B9A004D4DDA /* FavoritsViewController.swift in Sources */,
 				4EED54062A35CB39005100C1 /* ResultsTableController.swift in Sources */,
+				4EC8D45D2A3A280C00B47752 /* Details.swift in Sources */,
+				4EC8D45A2A3A1D1200B47752 /* HeadTableViewCell.swift in Sources */,
 				4EED54042A34EED8005100C1 /* ParallaxTableView.swift in Sources */,
 				4E894B162A2F2652004D4DDA /* HeadViewController.swift in Sources */,
 			);
