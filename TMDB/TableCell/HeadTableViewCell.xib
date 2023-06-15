@@ -25,9 +25,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pdo-xI-Ue1">
-                        <rect key="frame" x="16" y="8" width="110" height="186"/>
+                        <rect key="frame" x="16" y="8" width="110" height="184"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="186" id="TvM-yJ-zW0"/>
+                            <constraint firstAttribute="height" constant="184" id="TvM-yJ-zW0"/>
                             <constraint firstAttribute="width" constant="110" id="n2K-bv-lZf"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -96,7 +96,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="12D-Qe-af0"/>
                                         </constraints>
-                                        <imageReference key="image" image="star.fill" catalog="system" symbolScale="small"/>
+                                        <imageReference key="image" image="star.fill.left" catalog="system" symbolScale="small"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-5W-iHn">
                                         <rect key="frame" x="35.333333333333343" y="1.6666666666666643" width="17.666666666666671" height="21.000000000000004"/>
@@ -104,7 +104,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="41M-TM-Q7b"/>
                                         </constraints>
-                                        <imageReference key="image" image="star.leadinghalf.filled" catalog="system" symbolScale="small"/>
+                                        <imageReference key="image" image="star" catalog="system" symbolScale="small"/>
                                     </imageView>
                                 </subviews>
                             </stackView>
@@ -120,6 +120,7 @@
                     <constraint firstItem="pdo-xI-Ue1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Jo2-vT-xUX"/>
                     <constraint firstAttribute="trailing" secondItem="T1B-qE-pVE" secondAttribute="trailing" constant="16" id="OPT-Qo-VMd"/>
                     <constraint firstItem="T1B-qE-pVE" firstAttribute="leading" secondItem="pdo-xI-Ue1" secondAttribute="trailing" constant="16" id="aTM-Hb-Fos"/>
+                    <constraint firstItem="I5i-Dn-kbN" firstAttribute="top" secondItem="T1B-qE-pVE" secondAttribute="bottom" constant="46" id="bau-QC-Hri"/>
                     <constraint firstItem="BoO-GY-Cs2" firstAttribute="leading" secondItem="pdo-xI-Ue1" secondAttribute="trailing" constant="16" id="k8x-ex-ew3"/>
                     <constraint firstAttribute="bottom" secondItem="BoO-GY-Cs2" secondAttribute="bottom" constant="16" id="rdo-9c-Qm0"/>
                     <constraint firstAttribute="trailing" secondItem="bqu-Ap-Zp9" secondAttribute="trailing" constant="16" id="skg-QF-CO2"/>
@@ -136,13 +137,17 @@
                 <outlet property="headTitle" destination="T1B-qE-pVE" id="9LM-uM-NNQ"/>
                 <outlet property="poularityLabel" destination="gkV-Hn-6vT" id="a0C-Om-0G9"/>
                 <outlet property="reliseLabel" destination="lmz-Jo-Nno" id="OTa-Bw-hQU"/>
+                <outlet property="star1AvarageLogo" destination="Hhy-nW-HaP" id="bQt-5k-cjp"/>
+                <outlet property="star2AvarageLogo" destination="VUJ-kW-H7s" id="E1Q-bj-Vtd"/>
+                <outlet property="star3AvarageLogo" destination="ebw-5W-iHn" id="FaJ-1O-QEz"/>
             </connections>
             <point key="canvasLocation" x="417.55725190839695" y="-21.83098591549296"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="star.leadinghalf.filled" catalog="system" width="128" height="116"/>
+        <image name="star.fill.left" catalog="system" width="128" height="116"/>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

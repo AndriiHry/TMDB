@@ -38,7 +38,7 @@ class NetworkController {
         return try await loadPage(page: pageLoaded)
     }
     
-    func searchPage() async throws -> [Result] {
+    func searchPage(page: Int = 1) async throws -> [Result] {
         guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)")
         else
         {
@@ -50,6 +50,14 @@ class NetworkController {
         let sessionResponse = try await session.data(for: request)
         let moviesResponse = try decoder.decode(MovieData.self, from: sessionResponse.0)
         return moviesResponse.results
+    }
+    
+    func searcNextPage() async throws -> [Result] {
+        defer
+        {
+            pageLoaded += 1
+        }
+        return try await searchPage(page: pageLoaded)
     }
     
     func loadDetailsFromId(id: Int) async throws -> DetailsData? {

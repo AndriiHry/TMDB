@@ -76,6 +76,8 @@ class HeadViewController: UIViewController {
         search.searchBar.delegate = self
         search.searchResultsUpdater = self
         search.searchBar.autocapitalizationType = .none
+        search.searchBar.tintColor = .white
+        search.searchBar.searchTextField.textColor = .white
         self.navigationItem.searchController = search
         definesPresentationContext = true
     }
@@ -165,19 +167,19 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
-        cell.transform = CGAffineTransform(translationX:
-                                            cell.contentView.frame.width,
-                                           y: cell.contentView.frame.height/1.5)
-        cell.alpha = 0.25
-        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-            cell.alpha = 1
-            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-            cell.transform = CGAffineTransform(translationX:
-                                                cell.contentView.frame.width,
-                                               y: cell.contentView.frame.height)
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
+//        cell.transform = CGAffineTransform(translationX:
+//                                            cell.contentView.frame.width,
+//                                           y: cell.contentView.frame.height/1.5)
+//        cell.alpha = 0.25
+//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+//            cell.alpha = 1
+//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            cell.transform = CGAffineTransform(translationX:
+//                                                cell.contentView.frame.width,
+//                                               y: cell.contentView.frame.height)
+//        }
+//    }
     
 }
