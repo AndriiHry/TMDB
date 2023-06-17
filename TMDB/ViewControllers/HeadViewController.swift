@@ -17,9 +17,10 @@ class HeadViewController: UIViewController {
     var resultsTableController: ResultsTableController!
     let netwotkController = NetworkController()
     
-    var jsnData:[Result] = []
+    var jsnData: [Result] = []
     var typeVideo: String = "movie"
     var timer: Timer?
+    let headIdentify: String = "HeadTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class HeadViewController: UIViewController {
         
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
         
-        tableView.register(UINib(nibName: "HeadTableViewCell", bundle: nil), forCellReuseIdentifier: "HeadTableViewCell")
+        tableView.register(UINib(nibName: headIdentify, bundle: nil), forCellReuseIdentifier: headIdentify)
         
         
         load()
@@ -103,7 +104,7 @@ class HeadViewController: UIViewController {
                 self.load()
             }
         )
-        UITableView.animate(withDuration: 0.5) {
+        UITableView.animate(withDuration: 0.75) {
             self.tableView.alpha = 1
         }
     }
@@ -119,10 +120,9 @@ class HeadViewController: UIViewController {
     }
     
     // Setup Detail VC
-    func showDetail(for data:Result) {
+    func showDetail(for data: Result) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.overview = data.overview
-        detailVC.favorTitle = data.nameTitle
+        detailVC.detailData = data
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -147,14 +147,14 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeadTableViewCell", for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: headIdentify, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
         cell.configure(item: item)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 170
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -167,19 +167,19 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         }
     }
 
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
-//        cell.transform = CGAffineTransform(translationX:
-//                                            cell.contentView.frame.width,
-//                                           y: cell.contentView.frame.height/1.5)
-//        cell.alpha = 0.25
-//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-//            cell.alpha = 1
-//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-//            cell.transform = CGAffineTransform(translationX:
-//                                                cell.contentView.frame.width,
-//                                               y: cell.contentView.frame.height)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
+        cell.transform = CGAffineTransform(translationX:
+                                            cell.contentView.frame.width,
+                                           y: cell.contentView.frame.height/1.5)
+        cell.alpha = 0.25
+        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+            cell.alpha = 1
+            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            cell.transform = CGAffineTransform(translationX:
+                                                cell.contentView.frame.width,
+                                               y: cell.contentView.frame.height)
+        }
+    }
     
 }

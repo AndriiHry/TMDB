@@ -49,5 +49,5 @@ extension ResultsTableController {
         resultDidSelected?(result)
     }
 
-    
+
 }

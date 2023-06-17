@@ -38,10 +38,9 @@ class FavoritsViewController: UIViewController {
     }
     
     // Setup Detail VC
-    func showDetail(for data:Result) {
+    func showDetail(for data: Result) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.overview = data.overview
-        detailVC.favorTitle = data.nameTitle
+        detailVC.detailData = data
         navigationController?.pushViewController(detailVC, animated: true)
     }
 

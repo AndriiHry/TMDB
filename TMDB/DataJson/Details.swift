@@ -10,9 +10,9 @@ import Foundation
 // MARK: - Welcome
 struct DetailsData: Codable {
     let adult: Bool?
-    let backdropPath: String
+    let backdropPath: String?
     let belongsToCollection: BelongsToCollection?
-    let budget: Int
+    let budget: Int?
     let genres: [Genre]
     let homepage: String?
     let id: Int?
@@ -25,7 +25,8 @@ struct DetailsData: Codable {
     let productionCompanies: [ProductionCompany]
     let productionCountries: [ProductionCountry]
     let releaseDate: String
-    let revenue, runtime: Int?
+    let revenue: Int?
+    let runtime: Int?
     let spokenLanguages: [SpokenLanguage]?
     let status: String
     let tagline: String?

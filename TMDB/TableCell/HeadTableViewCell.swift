@@ -22,37 +22,21 @@ class HeadTableViewCell: UITableViewCell {
     @IBOutlet var star2AvarageLogo: UIImageView!
     @IBOutlet var star3AvarageLogo: UIImageView!
 
-    
-    
     let networkController = NetworkController()
     
-    
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
     }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-    
 
     func configure(item: Result) {
         Task.init {
             do {
                 let details = try await networkController.loadDetailsFromId(id: item.id)
-                DispatchQueue.main.async {
-                    self.countriesLabel.text = details?.productionCountries.first?.name ?? ""
-                    let genres = details?.genres.map { $0.name }
-                    self.ganreLabel.text = genres?.joined(separator: " | ")
-                }
+                self.countriesLabel.text = details?.productionCountries.first?.name ?? ""
+                let genres = details?.genres.map { $0.name }
+                self.ganreLabel.text = genres?.joined(separator: " | ")
             } catch {
-                print("Error load data from ID\(error)")
+                print("Error load data from ID:\(item.id) - \(item.genreIDS) - \(error)")
             }
         }
         self.headTitle.text = item.nameTitle
@@ -62,8 +46,6 @@ class HeadTableViewCell: UITableViewCell {
 
         switch voteAverage {
         case 0...0.1:
-//            self.avaregeStack.alpha = 0.5
-//            self.poularityLabel.alpha = 0.1
             self.star1AvarageLogo.image = UIImage(systemName: "star")
             self.star2AvarageLogo.image = UIImage(systemName: "star")
             self.star3AvarageLogo.image = UIImage(systemName: "star")
