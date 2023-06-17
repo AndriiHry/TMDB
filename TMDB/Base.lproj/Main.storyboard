@@ -215,9 +215,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we1-Y6-v4N" userLabel="YouTube">
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we1-Y6-v4N" userLabel="YouTube" customClass="YTPlayerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="199.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" red="0.20000001789999999" green="0.2588235438" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="7"/>
@@ -387,13 +387,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iz-jF-TNn">
-                                        <rect key="frame" x="8" y="413.5" width="339" height="16"/>
+                                        <rect key="frame" x="8" y="427.5" width="339" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" systemColor="systemOrangeColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YEAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgN-um-k7p">
-                                        <rect key="frame" x="8" y="437.5" width="339" height="20.5"/>
+                                        <rect key="frame" x="8" y="451.5" width="339" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -419,7 +419,7 @@
                                     <constraint firstItem="5iz-jF-TNn" firstAttribute="leading" secondItem="OLc-4E-Rmf" secondAttribute="leading" constant="8" id="hib-1m-Epo"/>
                                     <constraint firstItem="GsS-gc-Bcm" firstAttribute="leading" secondItem="ILZ-NA-gh2" secondAttribute="leading" constant="5" id="m8G-nV-XXq"/>
                                     <constraint firstItem="EjG-ns-iLG" firstAttribute="top" secondItem="AG9-sr-hkT" secondAttribute="bottom" constant="8" id="n5S-6d-xjz"/>
-                                    <constraint firstItem="5iz-jF-TNn" firstAttribute="top" secondItem="4sP-dp-qRt" secondAttribute="bottom" constant="16" id="nmb-0T-x4p"/>
+                                    <constraint firstItem="5iz-jF-TNn" firstAttribute="top" secondItem="4sP-dp-qRt" secondAttribute="bottom" constant="30" id="nmb-0T-x4p"/>
                                     <constraint firstItem="ILZ-NA-gh2" firstAttribute="trailing" secondItem="4sP-dp-qRt" secondAttribute="trailing" constant="8" id="oHS-if-tuz"/>
                                     <constraint firstItem="iki-1c-pMG" firstAttribute="top" secondItem="OLc-4E-Rmf" secondAttribute="top" constant="8" id="rOp-cJ-pgt"/>
                                 </constraints>
@@ -449,7 +449,7 @@
                         <outlet property="star1AvarageLogo" destination="KPp-30-m9l" id="wZm-7Q-16x"/>
                         <outlet property="star2AvarageLogo" destination="aAn-sm-87g" id="HOb-iy-tR6"/>
                         <outlet property="star3AvarageLogo" destination="gj8-pl-PrU" id="Les-yH-4Vq"/>
-                        <outlet property="youtubeView" destination="we1-Y6-v4N" id="qCh-5B-chN"/>
+                        <outlet property="youtubeView" destination="we1-Y6-v4N" id="eAz-5N-7SZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rk-Fc-BSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

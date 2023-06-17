@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YouTubeiOSPlayerHelper
 
 class DetailViewController: UIViewController {
     
@@ -21,7 +22,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var reliseLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     
-    @IBOutlet var youtubeView: UIView!
+    @IBOutlet var youtubeView: YTPlayerView!
     @IBOutlet var collectionView: UICollectionView!
     
     
@@ -140,10 +141,13 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let youtubeID = videoData[indexPath.row].key
-        UIView.animate(withDuration: 0.75) {
+        self.youtubeView.load(withVideoId: youtubeID)
+        UIView.animate(withDuration: 1.5) {
             self.youtubeView.layer.opacity = 1
         }
        
     }
     
 }
+
+
