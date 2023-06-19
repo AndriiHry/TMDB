@@ -16,8 +16,8 @@ class MovieTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func configure(item: Result) {
-        self.favoriteTitle.text = item.nameTitle
+    func configure(item: MovieCoreDB) {
+        self.favoriteTitle.text = item.title
         
         let urlStringBack = "https://image.tmdb.org/t/p/original\(item.backdropPath ?? "")"
         if item.backdropPath == nil {

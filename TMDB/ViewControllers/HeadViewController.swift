@@ -24,16 +24,10 @@ class HeadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         searchControllerSetup()
-        
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
-        
         tableView.register(UINib(nibName: headIdentify, bundle: nil), forCellReuseIdentifier: headIdentify)
-        
-        
         load()
-        
     }
     
     // Load data from URL with network controller
@@ -142,6 +136,7 @@ extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
 
 // TableView
 extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jsnData.count
     }
@@ -161,25 +156,35 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         showDetail(for: jsnData[indexPath.row])
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let move = UIContextualAction(style: .normal, title: " Add to Favorite") { (action, view, completionHandler) in
+            CoreDataController.shared.saveMoviesDB(movies: self.jsnData[indexPath.row])
+            completionHandler(true)
+        }
+        move.backgroundColor = UIColor(named: "BG")
+        let configuration = UISwipeActionsConfiguration(actions: [move])
+        return configuration
+    }
+    
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if let lastIndexPath = indexPaths.last, lastIndexPath.row == jsnData.count - 1 {
             load()
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
-        cell.transform = CGAffineTransform(translationX:
-                                            cell.contentView.frame.width,
-                                           y: cell.contentView.frame.height/1.5)
-        cell.alpha = 0.25
-        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-            cell.alpha = 1
-            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-            cell.transform = CGAffineTransform(translationX:
-                                                cell.contentView.frame.width,
-                                               y: cell.contentView.frame.height)
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
+//        cell.transform = CGAffineTransform(translationX:
+//                                            cell.contentView.frame.width,
+//                                           y: cell.contentView.frame.height/1.5)
+//        cell.alpha = 0.25
+//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+//            cell.alpha = 1
+//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            cell.transform = CGAffineTransform(translationX:
+//                                                cell.contentView.frame.width,
+//                                               y: cell.contentView.frame.height)
+//        }
+//    }
     
 }

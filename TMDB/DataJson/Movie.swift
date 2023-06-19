@@ -33,7 +33,7 @@ struct Result: Codable {
     let overview: String
     let posterPath: String?
     let mediaType: MediaType?
-    let genreIDS: [Int]
+    let genreIDS: [Int]?
     let popularity: Double
     let releaseDate: String?
     let video: Bool?

@@ -11,8 +11,7 @@ class FavoritsViewController: UIViewController {
 
     @IBOutlet var favoriteTableView: UITableView!
     
-    var myData:[Result] = []
-    let netwotkController = NetworkController()
+    var myData:[MovieCoreDB] = []
     
     
     override func viewDidLoad() {
@@ -21,30 +20,61 @@ class FavoritsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         favoriteTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "FavoritesTableCell")
         
+        tabBarController?.delegate = self
         loadData()
     }
 
-    
-    
+    // Load from Core DB
     private func loadData() {
         Task.init {
             do {
-                self.myData = try await netwotkController.loadPage(page: 8)
+                self.myData = try await CoreDataController.shared.loadMoviesDB()
                 self.favoriteTableView.reloadData()
             } catch {
-                print("Error load data\(error)")
+                print("Error load data from Core DB \(error)")
             }
         }
     }
     
     // Setup Detail VC
-    func showDetail(for data: Result) {
+    func showDetail(for data: MovieCoreDB) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        detailVC.detailData = data
+        let dataModify: Result = {
+            Result(adult: false,
+                   backdropPath: data.backdropPath,
+                   id: Int(data.id),
+                   title: data.title,
+                   originalLanguage: "",
+                   originalTitle: data.originalTitle,
+                   overview: data.overview ?? "",
+                   posterPath: "",
+                   mediaType: .movie,
+                   genreIDS: [],
+                   popularity: 0.0,
+                   releaseDate: data.reliseData,
+                   video: false,
+                   voteAverage: data.voteAverage,
+                   voteCount: 0,
+                   name: data.title,
+                   originalName: data.originalTitle,
+                   firstAirDate: data.reliseData,
+                   originCountry: [])
+        }()
+        detailVC.detailData = dataModify
         navigationController?.pushViewController(detailVC, animated: true)
     }
 
 }
+// Reload favoriteTableView then clicked tabBar on Favorite
+extension FavoritsViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if tabBarController.selectedIndex == 1 {
+            loadData()
+        }
+    }
+}
+
+// Setup TableView
 extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,27 +98,26 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            CoreDataController.shared.deleteFromDB(movie: myData[indexPath.row])
             myData.remove(at: indexPath.row)
-            // func delete from DB
             tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 1, y: 0.5)
-        cell.transform = CGAffineTransform(translationX:
-                                            cell.contentView.frame.width,
-                                           y: cell.contentView.frame.height/1.5)
-        cell.alpha = 0.25
-        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-            cell.alpha = 1
-            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-            cell.transform = CGAffineTransform(translationX:
-                                                cell.contentView.frame.width,
-                                               y: cell.contentView.frame.height)
-        }
-    }
-
     
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.5)
+//        cell.transform = CGAffineTransform(translationX:
+//                                            cell.contentView.frame.width,
+//                                           y: cell.contentView.frame.height/1.5)
+//        cell.alpha = 0.25
+//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+//            cell.alpha = 1
+//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            cell.transform = CGAffineTransform(translationX:
+//                                                cell.contentView.frame.width,
+//                                               y: cell.contentView.frame.height)
+//        }
+//    }
     
 }
     

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,7 +22,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title movie " textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1B-qE-pVE">
                         <rect key="frame" x="142" y="16" width="449" height="24"/>
                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                        <color key="textColor" red="0.024129587710000001" green="0.025142363269999999" blue="0.33076862369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="textColor" name="title"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pdo-xI-Ue1">
@@ -87,14 +88,14 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.5" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkV-Hn-6vT">
                                 <rect key="frame" x="0.0" y="0.0" width="53" height="25"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <color key="textColor" red="0.024129587710000001" green="0.025142363269999999" blue="0.33076862369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="title"/>
                                 <color key="highlightedColor" red="0.024129587710000001" green="0.025142363269999999" blue="0.33076862369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sCo-OR-tmp">
                                 <rect key="frame" x="0.0" y="25" width="53" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hhy-nW-HaP">
-                                        <rect key="frame" x="0.0" y="0.0" width="17.666666666666668" height="25.000000000000011"/>
+                                        <rect key="frame" x="0.0" y="1.6666666666666643" width="17.666666666666668" height="21.000000000000004"/>
                                         <color key="tintColor" systemColor="systemOrangeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="ebR-kB-vKS"/>
@@ -162,6 +163,9 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="star.fill.left" catalog="system" width="128" height="116"/>
+        <namedColor name="title">
+            <color red="0.024129587710000001" green="0.025142363269999999" blue="0.33076862369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
