@@ -18,15 +18,16 @@ class ResultsTableController: UITableViewController {
     
     var searchData:[Result] = []
     typealias ResultSelected = (Result) -> ()
+    let identify: String = "ResultTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewSearchResult.register(UINib(nibName: "ResultTableViewCell", bundle: nil), forCellReuseIdentifier: "ResultTableViewCell")
+        tableViewSearchResult.register(UINib(nibName: identify, bundle: nil), forCellReuseIdentifier: identify)
     }
     
 }
 
-//: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
+//MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
 extension ResultsTableController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -24,7 +24,7 @@ class FavoritsViewController: UIViewController {
         loadData()
     }
 
-    // Load from Core DB
+    //MARK: -  Load from Core DB
     private func loadData() {
         Task.init {
             do {
@@ -36,7 +36,7 @@ class FavoritsViewController: UIViewController {
         }
     }
     
-    // Setup Detail VC
+    // MARK: - Setup Detail VC
     func showDetail(for data: MovieCoreDB) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         let dataModify: Result = {
@@ -65,7 +65,7 @@ class FavoritsViewController: UIViewController {
     }
 
 }
-// Reload favoriteTableView then clicked tabBar on Favorite
+//MARK: -  Reload favoriteTableView when click on Favorite tabBar
 extension FavoritsViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if tabBarController.selectedIndex == 1 {
@@ -74,7 +74,7 @@ extension FavoritsViewController: UITabBarControllerDelegate {
     }
 }
 
-// Setup TableView
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,21 +104,8 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.5)
-//        cell.transform = CGAffineTransform(translationX:
-//                                            cell.contentView.frame.width,
-//                                           y: cell.contentView.frame.height/1.5)
-//        cell.alpha = 0.25
-//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-//            cell.alpha = 1
-//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-//            cell.transform = CGAffineTransform(translationX:
-//                                                cell.contentView.frame.width,
-//                                               y: cell.contentView.frame.height)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        AnimationTableView().cell(cell, forRowAt: indexPath)
+    }
     
 }
-    
-

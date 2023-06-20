@@ -25,9 +25,10 @@ class DetailViewController: UIViewController {
     @IBOutlet var youtubeView: YTPlayerView!
     @IBOutlet var collectionView: UICollectionView!
     
-    let networkController = NetworkController()    
+    let networkController = NetworkController()
     var videoData: [VideData] = []
     var detailData: Result!
+    let identify: String = "CustomCollectionViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,75 +48,45 @@ class DetailViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Load anower data from ID
+    func loadDetailData(itemDetail: Result) {
+        Task {
+            do {
+                let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
+                self.videoData = try await networkController.loadVideoData(id: itemDetail.id)
+                do {
+                    let company = details?.productionCompanies.map { $0.name }
+                    self.companyLabel.text = company?.joined(separator: " | ")
+                    let genres = details?.genres.map { $0.name }
+                    self.ganreLabel.text = genres?.joined(separator: " | ")
+                    self.collectionView.reloadData()
+                }
+            } catch {
+                print("Error load data from ID:\(itemDetail.id) - \(error)")
+            }
+        }
+    }
+    
     // MARK: - Configure
     func configureDetail(item: Result) {
         
+        loadDetailData(itemDetail: item)
+        
         self.detailTitleLabel.text = item.origTitle
         self.overviewLabel.text = item.overview
-        
-        Task.init {
-            do {
-                let details = try await networkController.loadDetailsFromId(id: item.id)
-                let company = details?.productionCompanies.map { $0.name }
-                self.companyLabel.text = company?.joined(separator: " | ")
-                let genres = details?.genres.map { $0.name }
-                self.ganreLabel.text = genres?.joined(separator: " | ")
-                self.videoData = try await networkController.loadVideoData(id: item.id)
-                self.collectionView.reloadData()
-            }
-            catch {
-                print("Error load video data from ID\(error)")
-            }
-        }
-        
-        self.reliseLabel.text = String(item.airReleaseDate.prefix(4))
-        let voteAverage = round(item.voteAverage * 10) / 10
-        self.poularityLabel.text = "\(voteAverage)"
-        
-        switch voteAverage {
-        case 0...0.1:
-            self.star1AvarageLogo.image = UIImage(systemName: "star")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 0.1...2:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill.left")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 2...4:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 4...6:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill.left")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 6...8:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 8...9:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star.fill.left")
-        case 9...10:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star.fill")
-        default: break
-        }
-        
-        let urlStringBack = "https://image.tmdb.org/t/p/original\(item.backdropPath ?? "")"
-        if item.backdropPath == nil {
-            self.detailImageView.image = UIImage(named: "noimage")
-        } else {
-            self.detailImageView.sd_setImage(with: URL(string: urlStringBack), completed: nil)
-        }
+        self.reliseLabel.text = String(item.airReleaseDate.replacingOccurrences(of: "-", with: "."))
+        RatingStars().ratingStars(for: item.voteAverage,
+                                  self.star1AvarageLogo,
+                                  self.star2AvarageLogo,
+                                  self.star3AvarageLogo,
+                                  label: self.poularityLabel)
+        TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.detailImageView)
     }
-
+    
+    // MARK: - Save Button
     @IBAction func savePressedButton(_ sender: Any) {
         CoreDataController.shared.saveMoviesDB(movies: detailData)
     }
-  
     
 }
 
@@ -128,7 +99,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCollectionViewCell", for: indexPath) as? CustomCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identify, for: indexPath) as? CustomCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.videoLabel.text = videoData[indexPath.row].type

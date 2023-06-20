@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class HeadViewController: UIViewController {
     
@@ -30,14 +29,14 @@ class HeadViewController: UIViewController {
         load()
     }
     
-    // Load data from URL with network controller
+    //MARK: - Load data from URL with network controller
     private func load() {
         Task.init {
             do {
                 self.jsnData += try await netwotkController.loadNextPage()
-                DispatchQueue.main.async {
+                do {
                     self.tableView.reloadData()
-                    self.loadHeadImage()
+                    TryLoadImage().tryLoadImage(from: self.jsnData.first?.backdropPath, to: self.headImage)
                 }
             } catch {
                 print("Error load data\(error)")
@@ -57,7 +56,7 @@ class HeadViewController: UIViewController {
         }
     }
     
-// Search controller setup
+//MARK: - Search controller setup
     func searchControllerSetup() {
         resultsTableController =
             self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
@@ -77,7 +76,7 @@ class HeadViewController: UIViewController {
         definesPresentationContext = true
     }
     
-// Segmented controller action setup
+//MARK: - Segmented controller action setup
     @objc func segmentAction(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0: netwotkController.typeVideo = "movie"
@@ -103,17 +102,7 @@ class HeadViewController: UIViewController {
         }
     }
     
-    //  Load image from first on TOP movie or tv
-    func loadHeadImage() {
-        guard let image = jsnData.first?.backdropPath,
-              let imageUrl = URL(string: "https://image.tmdb.org/t/p/original\(image)") else {
-            headImage.image = UIImage(named: "noimage")
-            return
-        }
-        headImage.sd_setImage(with: imageUrl)
-    }
-    
-    // Setup Detail VC
+    //MARK: - Setup Detail VC
     func showDetail(for data: Result) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         detailVC.detailData = data
@@ -121,7 +110,7 @@ class HeadViewController: UIViewController {
     }
 }
 
-// Search results
+//MARK: - Search results
 extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText =
@@ -134,7 +123,7 @@ extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
 }
 
-// TableView
+//MARK: -  HeadViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
 extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -172,19 +161,8 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         }
     }
 
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
-//        cell.transform = CGAffineTransform(translationX:
-//                                            cell.contentView.frame.width,
-//                                           y: cell.contentView.frame.height/1.5)
-//        cell.alpha = 0.25
-//        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
-//            cell.alpha = 1
-//            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-//            cell.transform = CGAffineTransform(translationX:
-//                                                cell.contentView.frame.width,
-//                                               y: cell.contentView.frame.height)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        AnimationTableView().cell(cell, forRowAt: indexPath)
+    }
     
 }

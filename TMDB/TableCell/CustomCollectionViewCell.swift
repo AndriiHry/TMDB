@@ -10,8 +10,6 @@ import UIKit
 class CustomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var videoLabel: UILabel!
-    
     @IBOutlet var circleView: UIView!
-    
     
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2E91A92A4174100080B75A /* RatingStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E91A82A4174100080B75A /* RatingStars.swift */; };
+		4E2E91AB2A4179EC0080B75A /* TryLoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E91AA2A4179EC0080B75A /* TryLoadImage.swift */; };
+		4E2E91AD2A4199C20080B75A /* AnimationCellsInTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E91AC2A4199C20080B75A /* AnimationCellsInTableView.swift */; };
 		4E36A11F2A2F108300BB5CE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36A11E2A2F108300BB5CE4 /* AppDelegate.swift */; };
 		4E36A1212A2F108300BB5CE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36A1202A2F108300BB5CE4 /* SceneDelegate.swift */; };
 		4E36A1232A2F108300BB5CE4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36A1222A2F108300BB5CE4 /* ViewController.swift */; };
@@ -35,6 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E2E91A82A4174100080B75A /* RatingStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStars.swift; sourceTree = "<group>"; };
+		4E2E91AA2A4179EC0080B75A /* TryLoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLoadImage.swift; sourceTree = "<group>"; };
+		4E2E91AC2A4199C20080B75A /* AnimationCellsInTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCellsInTableView.swift; sourceTree = "<group>"; };
 		4E36A11B2A2F108300BB5CE4 /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E36A11E2A2F108300BB5CE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E36A1202A2F108300BB5CE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +81,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E2E91A72A4173E70080B75A /* DesignElement */ = {
+			isa = PBXGroup;
+			children = (
+				4EED54032A34EED8005100C1 /* ParallaxTableView.swift */,
+				4E2E91A82A4174100080B75A /* RatingStars.swift */,
+				4E2E91AA2A4179EC0080B75A /* TryLoadImage.swift */,
+				4E2E91AC2A4199C20080B75A /* AnimationCellsInTableView.swift */,
+			);
+			path = DesignElement;
+			sourceTree = "<group>";
+		};
 		4E36A1122A2F108300BB5CE4 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +111,7 @@
 		4E36A11D2A2F108300BB5CE4 /* TMDB */ = {
 			isa = PBXGroup;
 			children = (
+				4E2E91A72A4173E70080B75A /* DesignElement */,
 				4E60E3B82A403D620012E0B3 /* CoreDB.xcdatamodeld */,
 				4E60E3B72A403C4A0012E0B3 /* CoreData */,
 				4E5ECE812A2FB880001B90DE /* TableCell */,
@@ -134,7 +152,6 @@
 			children = (
 				4E5ECE832A2FB8DB001B90DE /* MovieTableViewCell.swift */,
 				4E5ECE842A2FB8DB001B90DE /* MovieTableViewCell.xib */,
-				4EED54032A34EED8005100C1 /* ParallaxTableView.swift */,
 				4EC8D4582A3A1D1200B47752 /* HeadTableViewCell.swift */,
 				4EC8D4592A3A1D1200B47752 /* HeadTableViewCell.xib */,
 				4EE7956F2A3ADE6700088FB3 /* ResultTableViewCell.swift */,
@@ -246,11 +263,14 @@
 				4E5ECE802A2F980E001B90DE /* NetworkController.swift in Sources */,
 				4E5ECE7D2A2F9583001B90DE /* Movie.swift in Sources */,
 				4E5ECE852A2FB8DB001B90DE /* MovieTableViewCell.swift in Sources */,
+				4E2E91A92A4174100080B75A /* RatingStars.swift in Sources */,
 				4E36A1232A2F108300BB5CE4 /* ViewController.swift in Sources */,
 				4E60E3BA2A403D620012E0B3 /* CoreDB.xcdatamodeld in Sources */,
 				4E36A11F2A2F108300BB5CE4 /* AppDelegate.swift in Sources */,
+				4E2E91AB2A4179EC0080B75A /* TryLoadImage.swift in Sources */,
 				4E36A1212A2F108300BB5CE4 /* SceneDelegate.swift in Sources */,
 				4EE795702A3ADE6700088FB3 /* ResultTableViewCell.swift in Sources */,
+				4E2E91AD2A4199C20080B75A /* AnimationCellsInTableView.swift in Sources */,
 				4E894B1A2A2F2BE7004D4DDA /* DetailViewController.swift in Sources */,
 				4E894B182A2F2B9A004D4DDA /* FavoritsViewController.swift in Sources */,
 				4ECE89672A3E24AA0041EA8B /* YouTube.swift in Sources */,

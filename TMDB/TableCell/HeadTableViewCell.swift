@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class HeadTableViewCell: UITableViewCell {
     
@@ -23,65 +22,38 @@ class HeadTableViewCell: UITableViewCell {
     @IBOutlet var star3AvarageLogo: UIImageView!
 
     let networkController = NetworkController()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 
-    func configure(item: Result) {
-        Task.init {
+    // MARK: - Load anower data from ID
+    func loadDetailData(itemDetail: Result) {
+        Task {
             do {
-                let details = try await networkController.loadDetailsFromId(id: item.id)
-                self.countriesLabel.text = details?.productionCountries.first?.name ?? ""
-                let genres = details?.genres.map { $0.name }
-                self.ganreLabel.text = genres?.joined(separator: " | ")
+                let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
+                do {
+                    self.countriesLabel.text = details?.productionCountries.first?.name ?? ""
+                    let genres = details?.genres.map { $0.name }
+                    self.ganreLabel.text = genres?.joined(separator: " | ")
+                }
             } catch {
-                print("Error load data from ID:\(item.id) - \(item.genreIDS) - \(error)")
+                print("Error load data from ID:\(itemDetail.id) - \(error)")
             }
         }
+    }
+    
+    // MARK: - Configure
+    func configure(item: Result) {
+
+        loadDetailData(itemDetail: item)
+
         self.headTitle.text = item.nameTitle
         self.reliseLabel.text = String(item.airReleaseDate.prefix(4))
-        let voteAverage = round(item.voteAverage * 10) / 10
-        self.poularityLabel.text = "\(voteAverage)"
-
-        switch voteAverage {
-        case 0...0.1:
-            self.star1AvarageLogo.image = UIImage(systemName: "star")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 0.1...2:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill.left")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 2...4:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 4...6:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill.left")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 6...8:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star")
-        case 8...9:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star.fill.left")
-        case 9...10:
-            self.star1AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star2AvarageLogo.image = UIImage(systemName: "star.fill")
-            self.star3AvarageLogo.image = UIImage(systemName: "star.fill")
-        default: break
-        }
         
-        let urlStringBack = "https://image.tmdb.org/t/p/original\(item.posterPath ?? "")"
-        if item.posterPath == nil {
-            self.headImage.image = UIImage(named: "noimage")
-        } else {
-            self.headImage.sd_setImage(with: URL(string: urlStringBack), completed: nil)
-        }
+        RatingStars().ratingStars(for: item.voteAverage,
+                                  self.star1AvarageLogo,
+                                  self.star2AvarageLogo,
+                                  self.star3AvarageLogo,
+                                  label: self.poularityLabel)
+        
+        TryLoadImage().tryLoadImage(from: item.posterPath, to: self.headImage)
     }
     
 }
