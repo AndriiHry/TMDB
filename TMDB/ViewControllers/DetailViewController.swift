@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var companyLabel: UILabel!
     @IBOutlet var reliseLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
+    @IBOutlet var buttonImage: UIButton!
     
     @IBOutlet var youtubeView: YTPlayerView!
     @IBOutlet var collectionView: UICollectionView!
@@ -29,6 +30,7 @@ class DetailViewController: UIViewController {
     var videoData: [VideData] = []
     var detailData: Result!
     let identify: String = "CustomCollectionViewCell"
+    var isActive: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +83,30 @@ class DetailViewController: UIViewController {
                                   self.star3AvarageLogo,
                                   label: self.poularityLabel)
         TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.detailImageView)
+        Task {
+            let favoriteCollection = try await CoreDataController.shared.loadMoviesDB()
+            if favoriteCollection.contains(where: { $0.id == Int64(item.id) }) {
+                buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            } else {
+                buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+        }
+        
+
     }
     
     // MARK: - Save Button
     @IBAction func savePressedButton(_ sender: Any) {
         CoreDataController.shared.saveMoviesDB(movies: detailData)
+        buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+//        if isActive {
+//            isActive = false
+//            buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+//        } else {
+//            isActive = true
+//            buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+//        }
+        
     }
     
 }

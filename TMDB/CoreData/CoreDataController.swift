@@ -38,30 +38,27 @@ class CoreDataController {
     
     func saveMoviesDB(movies: Result) {
         persistentContainer.performBackgroundTask { context in
-            let objectDB = MovieCoreDB(context: context)
-            objectDB.id = Int64(movies.id)
-            objectDB.title = movies.nameTitle
-            objectDB.originalTitle = movies.origTitle
-            objectDB.overview = movies.overview
-            objectDB.voteAverage = movies.voteAverage
-            objectDB.backdropPath = movies.backdropPath
-            objectDB.reliseData = movies.airReleaseDate
-//            Task.init {
-//                do {
-//                    let details: DetailsData? =
-//                    try await NetworkController().loadDetailsFromId(id: Int(objectDB.id))
-//                    objectDB.companiesDetail = details?.productionCompanies.map { $0.name }
-//                    objectDB.genresDetail = details?.genres.map { $0.name }
-//                    let videoData: [VideData] =
-//                    try await NetworkController().loadVideoData(id: Int(objectDB.id))
-//                    objectDB.youtubeKey = videoData.map{ $0.key }
-//                    objectDB.youtubeType = videoData.map {$0.type }
-//                    try? context.save()
-//                } catch {
-//                    print("Error saving context: \(error)")
-//                }
-//            }
-            try? context.save()
+            let fetchRequest: NSFetchRequest<MovieCoreDB> = MovieCoreDB.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %ld", movies.id)
+            Task.init {
+                do {
+                    let existingMovies = try context.fetch(fetchRequest)
+                    
+                    if existingMovies.isEmpty {
+                        let objectDB = MovieCoreDB(context: context)
+                        objectDB.id = Int64(movies.id)
+                        objectDB.title = movies.nameTitle
+                        objectDB.originalTitle = movies.origTitle
+                        objectDB.overview = movies.overview
+                        objectDB.voteAverage = movies.voteAverage
+                        objectDB.backdropPath = movies.backdropPath
+                        objectDB.reliseData = movies.airReleaseDate
+                        try? context.save()
+                    } else {
+                        print("\(movies.id) already exists in the database")
+                    }
+                }
+            }
         }
     }
     

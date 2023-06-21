@@ -277,7 +277,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="add to favorite"/>
                                                         <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
-                                                            <imageReference key="image" image="heart" catalog="system" symbolScale="default" renderingMode="original"/>
+                                                            <imageReference key="image" image="heart" catalog="system" symbolScale="medium" renderingMode="original" variableValue="0.0"/>
                                                             <backgroundConfiguration key="background"/>
                                                             <color key="baseBackgroundColor" red="0.2352941036" green="0.27843138579999999" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </buttonConfiguration>
@@ -477,6 +477,7 @@
                     </view>
                     <connections>
                         <outlet property="avaregeStack" destination="FhH-iZ-57Q" id="HX7-hX-xaZ"/>
+                        <outlet property="buttonImage" destination="4ad-hO-ZgI" id="t7w-mH-oQS"/>
                         <outlet property="collectionView" destination="EjG-ns-iLG" id="BUP-OF-ucc"/>
                         <outlet property="companyLabel" destination="5iz-jF-TNn" id="XQl-EC-nwL"/>
                         <outlet property="detailImageView" destination="60W-ly-74K" id="jgB-ud-3nb"/>

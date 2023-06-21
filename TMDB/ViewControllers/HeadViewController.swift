@@ -34,7 +34,7 @@ class HeadViewController: UIViewController {
         Task.init {
             do {
                 self.jsnData += try await netwotkController.loadNextPage()
-                do {
+                DispatchQueue.main.async {
                     self.tableView.reloadData()
                     TryLoadImage().tryLoadImage(from: self.jsnData.first?.backdropPath, to: self.headImage)
                 }

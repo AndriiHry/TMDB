@@ -15,7 +15,7 @@ class NetworkController {
     var query: String = ""
     var pageLoaded: Int = 1
     
-    // load main data from url
+    //MARK: - load main data from url
     func loadPage(page: Int = 1) async throws -> [Result] {
         guard let url = URL(string: "https://api.themoviedb.org/3/trending/\(typeVideo)/day?api_key=\(apiKey)&page=\(page)")
         else
@@ -38,7 +38,7 @@ class NetworkController {
         return try await loadPage(page: pageLoaded)
     }
     
-    // search data from searchTcontroller in navigation
+    //MARK: - search data from searchTcontroller in navigation
     func searchPage(page: Int = 1) async throws -> [Result] {
         guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)")
         else
@@ -61,7 +61,7 @@ class NetworkController {
         return try await searchPage(page: pageLoaded)
     }
     
-    // load details from video ID tv or movie
+    //MARK: -  load details from video ID tv or movie
     func loadDetailsFromId(id: Int) async throws -> DetailsData? {
         guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)?language=en-US&api_key=\(apiKey)")
         else
@@ -76,7 +76,7 @@ class NetworkController {
         return detailsResponse
     }
     
-    //load youtube videID from main ID
+    //MARK: -load youtube videID from main ID
     func loadVideoData(id: Int) async throws -> [VideData] {
         guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)/videos?language=en-US&api_key=\(apiKey)")
         else

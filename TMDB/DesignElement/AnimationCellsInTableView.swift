@@ -13,9 +13,9 @@ class AnimationTableView {
         cell.transform = CGAffineTransform(scaleX: 1, y: 0.25)
         cell.transform = CGAffineTransform(translationX:
                                             cell.contentView.frame.width,
-                                           y: cell.contentView.frame.height/1.5)
+                                           y: cell.contentView.frame.height * 1.25)
         cell.alpha = 0.25
-        UIView.animate(withDuration: 0.25, delay: 0.005 * Double(indexPath.row)) {
+        UIView.animate(withDuration: 0.25) {
             cell.alpha = 1
             cell.transform = CGAffineTransform(scaleX: 1, y: 1)
             cell.transform = CGAffineTransform(translationX:
