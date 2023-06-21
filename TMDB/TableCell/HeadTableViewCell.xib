@@ -19,6 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="607" height="202"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OYO-pn-y5o">
+                        <rect key="frame" x="561" y="141" width="30" height="27"/>
+                        <color key="tintColor" name="subTitle"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="7wl-uo-1WV"/>
+                            <constraint firstAttribute="height" constant="30" id="8eV-fr-pPP"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title movie " textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1B-qE-pVE">
                         <rect key="frame" x="142" y="16" width="449" height="24"/>
                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
@@ -132,12 +140,14 @@
                     <constraint firstItem="T1B-qE-pVE" firstAttribute="top" secondItem="pdo-xI-Ue1" secondAttribute="top" constant="8" id="IJv-Bg-t4T"/>
                     <constraint firstItem="pdo-xI-Ue1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Jo2-vT-xUX"/>
                     <constraint firstAttribute="trailing" secondItem="T1B-qE-pVE" secondAttribute="trailing" constant="16" id="OPT-Qo-VMd"/>
+                    <constraint firstAttribute="bottom" secondItem="OYO-pn-y5o" secondAttribute="bottom" constant="33" id="TLu-fU-2f3"/>
                     <constraint firstItem="T1B-qE-pVE" firstAttribute="leading" secondItem="pdo-xI-Ue1" secondAttribute="trailing" constant="16" id="aTM-Hb-Fos"/>
                     <constraint firstItem="bqu-Ap-Zp9" firstAttribute="top" secondItem="T1B-qE-pVE" secondAttribute="bottom" constant="8" symbolic="YES" id="eTd-xg-Foc"/>
                     <constraint firstItem="bqu-Ap-Zp9" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.181518" id="eqO-lf-0cY"/>
                     <constraint firstItem="BoO-GY-Cs2" firstAttribute="leading" secondItem="pdo-xI-Ue1" secondAttribute="trailing" constant="16" id="k8x-ex-ew3"/>
                     <constraint firstAttribute="bottom" secondItem="BoO-GY-Cs2" secondAttribute="bottom" constant="8" id="rdo-9c-Qm0"/>
                     <constraint firstAttribute="trailing" secondItem="bqu-Ap-Zp9" secondAttribute="trailing" constant="16" id="skg-QF-CO2"/>
+                    <constraint firstAttribute="trailing" secondItem="OYO-pn-y5o" secondAttribute="trailing" constant="16" id="y0x-X4-fha"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -150,6 +160,7 @@
                 <outlet property="ganreLabel" destination="BoO-GY-Cs2" id="vd9-Ne-PDx"/>
                 <outlet property="headImage" destination="pdo-xI-Ue1" id="9Tv-kK-RuU"/>
                 <outlet property="headTitle" destination="T1B-qE-pVE" id="9LM-uM-NNQ"/>
+                <outlet property="heartImageView" destination="OYO-pn-y5o" id="OWD-cH-TOv"/>
                 <outlet property="poularityLabel" destination="gkV-Hn-6vT" id="a0C-Om-0G9"/>
                 <outlet property="reliseLabel" destination="lmz-Jo-Nno" id="OTa-Bw-hQU"/>
                 <outlet property="star1AvarageLogo" destination="Hhy-nW-HaP" id="bQt-5k-cjp"/>
@@ -160,8 +171,12 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <namedColor name="subTitle">
+            <color red="1" green="0.58399999141693115" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="title">
             <color red="0.024000000208616257" green="0.02500000037252903" blue="0.33100000023841858" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

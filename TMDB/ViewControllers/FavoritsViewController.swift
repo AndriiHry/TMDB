@@ -8,27 +8,28 @@
 import UIKit
 
 class FavoritsViewController: UIViewController {
-
+    
     @IBOutlet var favoriteTableView: UITableView!
     
+    let coreDataController = CoreDataController.shared
     var myData:[MovieCoreDB] = []
-    
+    let identifyNib = "MovieTableViewCell"
+    let identifyCell = "FavoritesTableCell"
+    let identifyDetailVC = "DetailViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.prefersLargeTitles = true
-        favoriteTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "FavoritesTableCell")
-        
-        tabBarController?.delegate = self
+        favoriteTableView.register(UINib(nibName: identifyNib, bundle: nil), forCellReuseIdentifier: identifyCell)
+        coreDataController.delegate = self
         loadData()
     }
-
+    
     //MARK: -  Load from Core DB
     private func loadData() {
         Task.init {
             do {
-                self.myData = try await CoreDataController.shared.loadMoviesDB()
+                self.myData = try await coreDataController.loadMoviesDB()
                 self.favoriteTableView.reloadData()
             } catch {
                 print("Error load data from Core DB \(error)")
@@ -38,7 +39,7 @@ class FavoritsViewController: UIViewController {
     
     // MARK: - Setup Detail VC
     func showDetail(for data: MovieCoreDB) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identifyDetailVC) as? DetailViewController else { return }
         let dataModify: Result = {
             Result(adult: false,
                    backdropPath: data.backdropPath,
@@ -63,13 +64,15 @@ class FavoritsViewController: UIViewController {
         detailVC.detailData = dataModify
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
+    
 }
-//MARK: -  Reload favoriteTableView when click on Favorite tabBar
-extension FavoritsViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if tabBarController.selectedIndex == 1 {
-            loadData()
+// MARK: - End Class
+
+// MARK: - CoreDataController Delegate
+extension FavoritsViewController: CoreDataControllerDelegate {
+    func favoriteMoviesUpdated() {
+        DispatchQueue.main.async {
+            self.loadData()
         }
     }
 }
@@ -82,7 +85,7 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesTableCell", for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifyCell, for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
         let item = myData[indexPath.row]
         cell.configure(item: item)
         return cell
@@ -98,14 +101,14 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            CoreDataController.shared.deleteFromDB(movie: myData[indexPath.row])
+            coreDataController.deleteFromDB(movie: myData[indexPath.row])
             myData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        AnimationTableView().cell(cell, forRowAt: indexPath)
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        AnimationTableView().cell(cell, forRowAt: indexPath)
+//    }
     
 }

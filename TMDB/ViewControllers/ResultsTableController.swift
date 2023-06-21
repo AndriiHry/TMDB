@@ -26,6 +26,7 @@ class ResultsTableController: UITableViewController {
     }
     
 }
+// MARK: - End Class
 
 //MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
 extension ResultsTableController {

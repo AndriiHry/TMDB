@@ -16,12 +16,14 @@ class HeadTableViewCell: UITableViewCell {
     @IBOutlet var poularityLabel: UILabel!
     @IBOutlet var ganreLabel: UILabel!
     
+    @IBOutlet var heartImageView: UIImageView!
     @IBOutlet var avaregeStack: UIStackView!
     @IBOutlet var star1AvarageLogo: UIImageView!
     @IBOutlet var star2AvarageLogo: UIImageView!
     @IBOutlet var star3AvarageLogo: UIImageView!
 
     let networkController = NetworkController()
+    let coreDataController = CoreDataController.shared
 
     // MARK: - Load anower data from ID
     func loadDetailData(itemDetail: Result) {

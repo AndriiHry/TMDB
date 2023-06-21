@@ -27,15 +27,17 @@ class DetailViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     
     let networkController = NetworkController()
+    let coreDataController = CoreDataController.shared
     var videoData: [VideData] = []
     var detailData: Result!
     let identify: String = "CustomCollectionViewCell"
     var isActive: Bool = false
+    var selectedItems: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = detailData.nameTitle
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
         navigationItem.largeTitleDisplayMode = .never
         configureDetail(item: detailData)
     }
@@ -52,7 +54,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Load anower data from ID
     func loadDetailData(itemDetail: Result) {
-        Task {
+        Task.init {
             do {
                 let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
                 self.videoData = try await networkController.loadVideoData(id: itemDetail.id)
@@ -71,7 +73,6 @@ class DetailViewController: UIViewController {
     
     // MARK: - Configure
     func configureDetail(item: Result) {
-        
         loadDetailData(itemDetail: item)
         
         self.detailTitleLabel.text = item.origTitle
@@ -83,34 +84,37 @@ class DetailViewController: UIViewController {
                                   self.star3AvarageLogo,
                                   label: self.poularityLabel)
         TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.detailImageView)
-        Task {
-            let favoriteCollection = try await CoreDataController.shared.loadMoviesDB()
+        Task.init {
+            let favoriteCollection = try await coreDataController.loadMoviesDB()
             if favoriteCollection.contains(where: { $0.id == Int64(item.id) }) {
                 buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                isActive = true
             } else {
                 buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+                isActive = false
             }
         }
-        
-
     }
     
     // MARK: - Save Button
     @IBAction func savePressedButton(_ sender: Any) {
-        CoreDataController.shared.saveMoviesDB(movies: detailData)
-        buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-//        if isActive {
-//            isActive = false
-//            buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
-//        } else {
-//            isActive = true
-//            buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-//        }
-        
+        switch isActive {
+        case true:
+            buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+            Task.init {
+                let favoriteCollection = try await coreDataController.loadMoviesDB()
+                if let movieToDelete = favoriteCollection.first(where: { $0.id == Int64(detailData.id) }) {
+                    coreDataController.deleteFromDB(movie: movieToDelete)
+                }
+            }
+        case false:
+            buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            coreDataController.saveMoviesDB(movies: detailData)
+        }
     }
     
 }
-
+// MARK: - End Class
 
 // MARK: - Extension UICollectionViewDataSource, UICollectionViewDelegate
 extension DetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -124,12 +128,18 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             return UICollectionViewCell()
         }
         cell.videoLabel.text = videoData[indexPath.row].type
+        if selectedItems.contains(where: {$0 == videoData[indexPath.row].key}) {
+            cell.circleView.backgroundColor = .red
+        } else {
+            cell.circleView.backgroundColor = .gray
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let youtubeID = videoData[indexPath.row].key
         self.youtubeView.load(withVideoId: youtubeID)
+        selectedItems.append(youtubeID)
         if let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell {
             UIView.animate(withDuration: 1.5) {
                 self.youtubeView.layer.opacity = 1

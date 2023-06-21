@@ -8,11 +8,19 @@
 import Foundation
 import CoreData
 
+//MARK: - Protocol delegat
+protocol CoreDataControllerDelegate: AnyObject {
+    func favoriteMoviesUpdated()
+}
+
+
 // MARK: - Core Data stack
 class CoreDataController {
     
     static let shared = CoreDataController()
     private init() {}
+    
+    weak var delegate: CoreDataControllerDelegate?
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CoreDB")
@@ -29,7 +37,6 @@ class CoreDataController {
         let context = persistentContainer.viewContext
         context.performAndWait {
             let request = NSFetchRequest<MovieCoreDB>(entityName: MovieCoreDB.entity().name!)
-//            request.sortDescriptors = [NSSortDescriptor()]
             let results = try? request.execute()
             movies = results.map {$0} ?? []
         }
@@ -54,18 +61,21 @@ class CoreDataController {
                         objectDB.backdropPath = movies.backdropPath
                         objectDB.reliseData = movies.airReleaseDate
                         try? context.save()
+                        self.delegate?.favoriteMoviesUpdated()
                     } else {
                         print("\(movies.id) already exists in the database")
                     }
                 }
             }
         }
+        
     }
     
     func deleteFromDB(movie: MovieCoreDB) {
         let context = persistentContainer.viewContext
         context.delete(movie as NSManagedObject)
         try? context.save()
+        self.delegate?.favoriteMoviesUpdated()
     }
     
     

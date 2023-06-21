@@ -15,8 +15,10 @@ class HeadViewController: UIViewController {
     
     var resultsTableController: ResultsTableController!
     let netwotkController = NetworkController()
+    let coreDataController = CoreDataController.shared
     
     var jsnData: [Result] = []
+    var favoriteData: [MovieCoreDB] = []
     var typeVideo: String = "movie"
     var timer: Timer?
     let headIdentify: String = "HeadTableViewCell"
@@ -25,12 +27,15 @@ class HeadViewController: UIViewController {
         super.viewDidLoad()
         searchControllerSetup()
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
+        coreDataController.delegate = self
         tableView.register(UINib(nibName: headIdentify, bundle: nil), forCellReuseIdentifier: headIdentify)
         load()
+
     }
     
     //MARK: - Load data from URL with network controller
     private func load() {
+        loadFavoriteCollection()
         Task.init {
             do {
                 self.jsnData += try await netwotkController.loadNextPage()
@@ -47,7 +52,6 @@ class HeadViewController: UIViewController {
     private func loadSearchData() {
         Task.init {
             do {
-//                resultsTableController.searchData.removeAll()
                 resultsTableController.searchData = try await self.netwotkController.searchPage()
                 resultsTableController.tableViewSearchResult.reloadData()
             } catch {
@@ -56,13 +60,13 @@ class HeadViewController: UIViewController {
         }
     }
     
-//MARK: - Search controller setup
+    //MARK: - Search controller setup
     func searchControllerSetup() {
         resultsTableController =
-            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
+        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
         resultsTableController.tableView.delegate = resultsTableController
         resultsTableController.tableView.dataSource = resultsTableController
-        resultsTableController.resultDidSelected = { [ weak self ] selectedResult in
+        resultsTableController.resultDidSelected = { [weak self] selectedResult in
             self?.showDetail(for: selectedResult)
         }
         resultsTableController.parentNavigationController = navigationController
@@ -76,7 +80,7 @@ class HeadViewController: UIViewController {
         definesPresentationContext = true
     }
     
-//MARK: - Segmented controller action setup
+    //MARK: - Segmented controller action setup
     @objc func segmentAction(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0: netwotkController.typeVideo = "movie"
@@ -108,6 +112,30 @@ class HeadViewController: UIViewController {
         detailVC.detailData = data
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    //MARK: - Load CoreData
+    func loadFavoriteCollection(){
+        Task.init {
+            do {
+                favoriteData = try await self.coreDataController.loadMoviesDB()
+            } catch {
+                print("Error loading Favorite data: \(error)")
+            }
+        }
+    }
+    
+    
+}
+// MARK: - End Class
+
+// MARK: - CoreDataController Delegate
+extension HeadViewController: CoreDataControllerDelegate {
+    func favoriteMoviesUpdated() {
+        loadFavoriteCollection()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
 
 //MARK: - Search results
@@ -117,15 +145,15 @@ extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
         searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces)
         let searchItems = searchText.replacingOccurrences(of: " ", with: "%20")
         self.netwotkController.query = searchItems
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
-            self.loadSearchData()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] (_) in
+            self?.loadSearchData()
         })
     }
 }
 
 //MARK: -  HeadViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
 extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jsnData.count
     }
@@ -133,6 +161,11 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: headIdentify, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
+        if favoriteData.contains(where: { $0.id == Int64(item.id) }) {
+            cell.heartImageView.alpha = 1
+        } else {
+            cell.heartImageView.alpha = 0
+        }
         cell.configure(item: item)
         return cell
     }
@@ -147,11 +180,14 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let move = UIContextualAction(style: .normal, title: " Add to Favorite") { (action, view, completionHandler) in
-            CoreDataController.shared.saveMoviesDB(movies: self.jsnData[indexPath.row])
+            self.coreDataController.saveMoviesDB(movies: self.jsnData[indexPath.row])
             completionHandler(true)
         }
         move.backgroundColor = UIColor(named: "BG")
         let configuration = UISwipeActionsConfiguration(actions: [move])
+//        if let cell = tableView.cellForRow(at: indexPath) as? HeadTableViewCell {
+//            cell.heartImageView.alpha = 1
+//        }
         return configuration
     }
     
@@ -160,9 +196,9 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
             load()
         }
     }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        AnimationTableView().cell(cell, forRowAt: indexPath)
-    }
+    
+    //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    //        AnimationTableView().cell(cell, forRowAt: indexPath)
+    //    }
     
 }
