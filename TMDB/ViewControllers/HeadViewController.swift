@@ -19,7 +19,6 @@ class HeadViewController: UIViewController {
     
     var jsnData: [Result] = []
     var favoriteData: [MovieCoreDB] = []
-    var typeVideo: String = "movie"
     var timer: Timer?
     let headIdentify: String = "HeadTableViewCell"
     
@@ -27,21 +26,26 @@ class HeadViewController: UIViewController {
         super.viewDidLoad()
         searchControllerSetup()
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
-        coreDataController.delegate = self
         tableView.register(UINib(nibName: headIdentify, bundle: nil), forCellReuseIdentifier: headIdentify)
         load()
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        coreDataController.delegate = self
+        self.tableView.reloadData()
+    }
+
+    
     //MARK: - Load data from URL with network controller
     private func load() {
-        loadFavoriteCollection()
+        self.loadFavoriteCollection()
         Task.init {
             do {
                 self.jsnData += try await netwotkController.loadNextPage()
+                TryLoadImage().tryLoadImage(from: self.jsnData.first?.backdropPath, to: self.headImage)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    TryLoadImage().tryLoadImage(from: self.jsnData.first?.backdropPath, to: self.headImage)
                 }
             } catch {
                 print("Error load data\(error)")
@@ -131,12 +135,10 @@ class HeadViewController: UIViewController {
 // MARK: - CoreDataController Delegate
 extension HeadViewController: CoreDataControllerDelegate {
     func favoriteMoviesUpdated() {
-        loadFavoriteCollection()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        load()
     }
 }
+
 
 //MARK: - Search results
 extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
@@ -162,9 +164,9 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: headIdentify, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
         if favoriteData.contains(where: { $0.id == Int64(item.id) }) {
-            cell.heartImageView.alpha = 1
+            cell.heartImageView.layer.opacity = 1
         } else {
-            cell.heartImageView.alpha = 0
+            cell.heartImageView.layer.opacity = 0
         }
         cell.configure(item: item)
         return cell
@@ -179,17 +181,23 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: " Add to Favorite") { (action, view, completionHandler) in
-            self.coreDataController.saveMoviesDB(movies: self.jsnData[indexPath.row])
+        let move = UIContextualAction(style: .normal, title: "Add to ♡") { [weak self] (action, view, completionHandler) in
+            self?.coreDataController.saveMoviesDB(movies: self!.jsnData[indexPath.row])
             completionHandler(true)
         }
         move.backgroundColor = UIColor(named: "BG")
-        let configuration = UISwipeActionsConfiguration(actions: [move])
-//        if let cell = tableView.cellForRow(at: indexPath) as? HeadTableViewCell {
-//            cell.heartImageView.alpha = 1
-//        }
-        return configuration
+        return UISwipeActionsConfiguration(actions: [move])
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self ] (action, view, completionHandler) in
+//            self?.coreDataController.deleteFromDB(movie: <#T##MovieCoreDB#>)
+            completionHandler(true)
+        }
+//        delete.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if let lastIndexPath = indexPaths.last, lastIndexPath.row == jsnData.count - 1 {

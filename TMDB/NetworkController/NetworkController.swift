@@ -63,7 +63,7 @@ class NetworkController {
     
     //MARK: -  load details from video ID tv or movie
     func loadDetailsFromId(id: Int) async throws -> DetailsData? {
-        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)?language=en-US&api_key=\(apiKey)")
+        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)?&api_key=\(apiKey)")
         else
         {
             print("Errore detail ID URL")
@@ -77,8 +77,8 @@ class NetworkController {
     }
     
     //MARK: -load youtube videID from main ID
-    func loadVideoData(id: Int) async throws -> [VideData] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)/videos?language=en-US&api_key=\(apiKey)")
+    func loadVideoData(id: Int, type: MediaType) async throws -> [VideData] {
+        guard let url = URL(string: "https://api.themoviedb.org/3/\(type)/\(id)/videos?&api_key=\(apiKey)")
         else
         {
             print("Errore Load Video Data from ID")

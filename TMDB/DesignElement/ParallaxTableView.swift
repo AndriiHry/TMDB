@@ -22,6 +22,16 @@ class ParallaxTableView: UITableView {
         }
         
         let offsetY = contentOffset.y
+//        let originalHeight = header.bounds.height
+//        let minHeight: CGFloat = 150
+//        if offsetY < 0 {
+//            height?.constant = max(originalHeight - offsetY, originalHeight + offsetY/2)
+//            bottom?.constant = offsetY / 2
+//        } else {
+//            height?.constant = max(minHeight, originalHeight - offsetY)
+//            bottom?.constant = 0
+//        }
+        
         bottom?.constant = offsetY >= 0 ? 0 : offsetY / 2
         height?.constant = max(header.bounds.height - offsetY, header.bounds.height + offsetY/2)
         header.clipsToBounds = offsetY <= 0

@@ -21,8 +21,13 @@ class FavoritsViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         favoriteTableView.register(UINib(nibName: identifyNib, bundle: nil), forCellReuseIdentifier: identifyCell)
+        loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         coreDataController.delegate = self
         loadData()
+        self.favoriteTableView.reloadData()
     }
     
     //MARK: -  Load from Core DB
@@ -102,6 +107,7 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             coreDataController.deleteFromDB(movie: myData[indexPath.row])
+
             myData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
         }

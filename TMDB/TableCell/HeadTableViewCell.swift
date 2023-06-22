@@ -31,21 +31,21 @@ class HeadTableViewCell: UITableViewCell {
             do {
                 let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
                 do {
-                    self.countriesLabel.text = details?.productionCountries.first?.name ?? ""
+                    self.countriesLabel.text = details?.origCountr
                     let genres = details?.genres.map { $0.name }
-                    self.ganreLabel.text = genres?.joined(separator: " | ")
+                    self.ganreLabel.text = genres?.joined(separator: " | ") ?? ""
                 }
             } catch {
                 print("Error load data from ID:\(itemDetail.id) - \(error)")
             }
         }
     }
-    
+        
     // MARK: - Configure
     func configure(item: Result) {
-
+        
         loadDetailData(itemDetail: item)
-
+        
         self.headTitle.text = item.nameTitle
         self.reliseLabel.text = String(item.airReleaseDate.prefix(4))
         
