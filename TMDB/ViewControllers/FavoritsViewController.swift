@@ -46,7 +46,7 @@ class FavoritsViewController: UIViewController {
     func showDetail(for data: MovieCoreDB) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identifyDetailVC) as? DetailViewController else { return }
         let dataModify: Result = {
-            Result(adult: false,
+            Result(
                    backdropPath: data.backdropPath,
                    id: Int(data.id),
                    title: data.title,
@@ -54,13 +54,10 @@ class FavoritsViewController: UIViewController {
                    originalTitle: data.originalTitle,
                    overview: data.overview ?? "",
                    posterPath: "",
-                   mediaType: .movie,
+                   mediaType: .init(rawValue: data.mediaType ?? "movie"),
                    genreIDS: [],
-                   popularity: 0.0,
                    releaseDate: data.reliseData,
-                   video: false,
                    voteAverage: data.voteAverage,
-                   voteCount: 0,
                    name: data.title,
                    originalName: data.originalTitle,
                    firstAirDate: data.reliseData,

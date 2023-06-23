@@ -32,7 +32,6 @@
 		4ECE89672A3E24AA0041EA8B /* YouTube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE89662A3E24AA0041EA8B /* YouTube.swift */; };
 		4ECE89692A3E364C0041EA8B /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE89682A3E364C0041EA8B /* CustomCollectionViewCell.swift */; };
 		4ECE896C2A3E4C9D0041EA8B /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECE896B2A3E4C9D0041EA8B /* YouTubeiOSPlayerHelper */; };
-		4ECFB5FB2A442C0F007309C0 /* DataTempTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFB5FA2A442C0F007309C0 /* DataTempTV.swift */; };
 		4EE795702A3ADE6700088FB3 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7956F2A3ADE6700088FB3 /* ResultTableViewCell.swift */; };
 		4EED54042A34EED8005100C1 /* ParallaxTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED54032A34EED8005100C1 /* ParallaxTableView.swift */; };
 		4EED54062A35CB39005100C1 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED54052A35CB39005100C1 /* ResultsTableController.swift */; };
@@ -64,7 +63,6 @@
 		4EC8D45C2A3A280C00B47752 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		4ECE89662A3E24AA0041EA8B /* YouTube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTube.swift; sourceTree = "<group>"; };
 		4ECE89682A3E364C0041EA8B /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
-		4ECFB5FA2A442C0F007309C0 /* DataTempTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTempTV.swift; sourceTree = "<group>"; };
 		4EE7956F2A3ADE6700088FB3 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		4EED54032A34EED8005100C1 /* ParallaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxTableView.swift; sourceTree = "<group>"; };
 		4EED54052A35CB39005100C1 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 				4E5ECE7C2A2F9583001B90DE /* Movie.swift */,
 				4EC8D45C2A3A280C00B47752 /* Details.swift */,
 				4ECE89662A3E24AA0041EA8B /* YouTube.swift */,
-				4ECFB5FA2A442C0F007309C0 /* DataTempTV.swift */,
 			);
 			path = DataJson;
 			sourceTree = "<group>";
@@ -266,7 +263,6 @@
 				4E5ECE802A2F980E001B90DE /* NetworkController.swift in Sources */,
 				4E5ECE7D2A2F9583001B90DE /* Movie.swift in Sources */,
 				4E5ECE852A2FB8DB001B90DE /* MovieTableViewCell.swift in Sources */,
-				4ECFB5FB2A442C0F007309C0 /* DataTempTV.swift in Sources */,
 				4E2E91A92A4174100080B75A /* RatingStars.swift in Sources */,
 				4E36A1232A2F108300BB5CE4 /* ViewController.swift in Sources */,
 				4E60E3BA2A403D620012E0B3 /* CoreDB.xcdatamodeld in Sources */,

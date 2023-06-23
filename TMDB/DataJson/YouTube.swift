@@ -18,12 +18,10 @@ struct VideData: Codable {
 
     let name: String
     let key: String
-
     let type: String
     let id: String
 
     enum CodingKeys: String, CodingKey {
-
         case key, type, name
         case id
     }

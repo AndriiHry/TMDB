@@ -29,7 +29,7 @@ class HeadTableViewCell: UITableViewCell {
     func loadDetailData(itemDetail: Result) {
         Task {
             do {
-                let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
+                let details = try await networkController.loadDetailsFromId(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
                 do {
                     self.countriesLabel.text = details?.origCountr
                     let genres = details?.genres.map { $0.name }

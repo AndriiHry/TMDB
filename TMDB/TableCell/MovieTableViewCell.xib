@@ -19,7 +19,7 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Adv-zx-s9l">
                         <rect key="frame" x="8" y="8" width="142.33333333333334" height="80"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="Adv-zx-s9l" secondAttribute="height" multiplier="16:9" id="fu6-Yy-j4S"/>
+                            <constraint firstAttribute="width" secondItem="Adv-zx-s9l" secondAttribute="height" multiplier="16:9" priority="999" id="fu6-Yy-j4S"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

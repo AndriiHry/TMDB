@@ -56,8 +56,8 @@ class DetailViewController: UIViewController {
     func loadDetailData(itemDetail: Result) {
         Task.init {
             do {
-                let details = try await networkController.loadDetailsFromId(id: itemDetail.id)
-                self.videoData = try await networkController.loadVideoData(id: itemDetail.id, type: itemDetail.mediaType ?? .tv)
+                let details = try await networkController.loadDetailsFromId(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                self.videoData = try await networkController.loadVideoData(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
                 do {
                     let company = details?.productionCompanies.map { $0.name }
                     self.companyLabel.text = company?.joined(separator: " | ")

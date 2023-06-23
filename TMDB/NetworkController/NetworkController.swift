@@ -39,7 +39,7 @@ class NetworkController {
     }
     
     //MARK: - search data from searchTcontroller in navigation
-    func searchPage(page: Int = 1) async throws -> [Result] {
+    func searchPage(page: Int = 1, typeVideo: String) async throws -> [Result] {
         guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)")
         else
         {
@@ -53,16 +53,8 @@ class NetworkController {
         return moviesResponse.results
     }
     
-    func searcNextPage() async throws -> [Result] {
-        defer
-        {
-            pageLoaded += 1
-        }
-        return try await searchPage(page: pageLoaded)
-    }
-    
     //MARK: -  load details from video ID tv or movie
-    func loadDetailsFromId(id: Int) async throws -> DetailsData? {
+    func loadDetailsFromId(id: Int, typeVideo: String) async throws -> DetailsData? {
         guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)?&api_key=\(apiKey)")
         else
         {
@@ -77,8 +69,8 @@ class NetworkController {
     }
     
     //MARK: -load youtube videID from main ID
-    func loadVideoData(id: Int, type: MediaType) async throws -> [VideData] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/\(type)/\(id)/videos?&api_key=\(apiKey)")
+    func loadVideoData(id: Int, typeVideo: String) async throws -> [VideData] {
+        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)/videos?&api_key=\(apiKey)")
         else
         {
             print("Errore Load Video Data from ID")

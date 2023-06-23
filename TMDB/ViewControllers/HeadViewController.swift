@@ -56,7 +56,8 @@ class HeadViewController: UIViewController {
     private func loadSearchData() {
         Task.init {
             do {
-                resultsTableController.searchData = try await self.netwotkController.searchPage()
+                resultsTableController.searchData = try await
+                self.netwotkController.searchPage(typeVideo: netwotkController.typeVideo)
                 resultsTableController.tableViewSearchResult.reloadData()
             } catch {
                 print("Error loading search data: \(error)")
@@ -181,7 +182,7 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: "Add to ♡") { [weak self] (action, view, completionHandler) in
+        let move = UIContextualAction(style: .normal, title: "Add to ♡") { [weak self](action, view, completionHandler) in
             self?.coreDataController.saveMoviesDB(movies: self!.jsnData[indexPath.row])
             completionHandler(true)
         }
@@ -190,7 +191,7 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self ] (action, view, completionHandler) in
+        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self](action, view, completionHandler) in
 //            self?.coreDataController.deleteFromDB(movie: <#T##MovieCoreDB#>)
             completionHandler(true)
         }

@@ -60,6 +60,7 @@ class CoreDataController {
                         objectDB.voteAverage = movies.voteAverage
                         objectDB.backdropPath = movies.backdropPath
                         objectDB.reliseData = movies.airReleaseDate
+                        objectDB.mediaType = movies.mediaType?.rawValue
                         try? context.save()
                         self.delegate?.favoriteMoviesUpdated()
                     } else {
