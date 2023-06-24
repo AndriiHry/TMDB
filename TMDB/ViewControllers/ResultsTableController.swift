@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class ResultsTableController: UITableViewController {
     
@@ -18,11 +17,12 @@ class ResultsTableController: UITableViewController {
     
     var searchData:[Result] = []
     typealias ResultSelected = (Result) -> ()
-    let identify: String = "ResultTableViewCell"
+    let identifyResultCell: String = "ResultTableViewCell"
+    let identifyDetailVC: String = "DetailViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewSearchResult.register(UINib(nibName: identify, bundle: nil), forCellReuseIdentifier: identify)
+        tableViewSearchResult.register(UINib(nibName: identifyResultCell, bundle: nil), forCellReuseIdentifier: identifyResultCell)
     }
     
 }

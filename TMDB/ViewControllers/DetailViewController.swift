@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var overviewLabel: UILabel!
     @IBOutlet var buttonImage: UIButton!
     
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var youtubeView: YTPlayerView!
     @IBOutlet var collectionView: UICollectionView!
     
@@ -139,13 +140,25 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let youtubeID = videoData[indexPath.row].key
         self.youtubeView.load(withVideoId: youtubeID)
+        self.youtubeView.delegate = self
         selectedItems.append(youtubeID)
         if let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell {
-            UIView.animate(withDuration: 1.5) {
-                self.youtubeView.layer.opacity = 1
+            UIView.animate(withDuration: 1) {
+                self.detailImageView.layer.opacity = 0.35
+                self.activityIndicator.layer.opacity = 1
                 cell.circleView.backgroundColor = .red
             }
         }
     }
     
+}
+
+// MARK: - YTPlayerViewDelegate
+extension DetailViewController: YTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+        self.youtubeView.playVideo()
+        UIView.animate(withDuration: 1, delay: 1) {
+            self.youtubeView.layer.opacity = 1
+        }
+    }
 }

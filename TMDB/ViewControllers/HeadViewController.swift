@@ -17,18 +17,20 @@ class HeadViewController: UIViewController {
     let netwotkController = NetworkController()
     let coreDataController = CoreDataController.shared
     
+    let identHeadCell: String = "HeadTableViewCell"
+    let identResultsVC: String = "ResultsTableController"
+    let identDetailVC: String = "DetailViewController"
+    
     var jsnData: [Result] = []
     var favoriteData: [MovieCoreDB] = []
     var timer: Timer?
-    let headIdentify: String = "HeadTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchControllerSetup()
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
-        tableView.register(UINib(nibName: headIdentify, bundle: nil), forCellReuseIdentifier: headIdentify)
+        tableView.register(UINib(nibName: identHeadCell, bundle: nil), forCellReuseIdentifier: identHeadCell)
         load()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,11 +70,13 @@ class HeadViewController: UIViewController {
     //MARK: - Search controller setup
     func searchControllerSetup() {
         resultsTableController =
-        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController")as? ResultsTableController
+        self.storyboard?.instantiateViewController(withIdentifier: identResultsVC) as? ResultsTableController
         resultsTableController.tableView.delegate = resultsTableController
         resultsTableController.tableView.dataSource = resultsTableController
-        resultsTableController.resultDidSelected = { [weak self] selectedResult in
-            self?.showDetail(for: selectedResult)
+        resultsTableController.resultDidSelected = { [weak self] itemResult in
+            var updateResult = itemResult
+            updateResult.mediaType = .init(rawValue: self?.netwotkController.typeVideo ?? "movie")
+            self?.showDetail(for: updateResult)
         }
         resultsTableController.parentNavigationController = navigationController
         let search = UISearchController(searchResultsController: resultsTableController)
@@ -106,14 +110,14 @@ class HeadViewController: UIViewController {
                 self.load()
             }
         )
-        UITableView.animate(withDuration: 0.75) {
+        UITableView.animate(withDuration: 0.75, delay: 0.01) {
             self.tableView.alpha = 1
         }
     }
     
     //MARK: - Setup Detail VC
     func showDetail(for data: Result) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identDetailVC) as? DetailViewController else { return }
         detailVC.detailData = data
         navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -162,7 +166,7 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: headIdentify, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identHeadCell, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
         if favoriteData.contains(where: { $0.id == Int64(item.id) }) {
             cell.heartImageView.layer.opacity = 1
@@ -190,14 +194,13 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         return UISwipeActionsConfiguration(actions: [move])
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self](action, view, completionHandler) in
+//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self](action, view, completionHandler) in
 //            self?.coreDataController.deleteFromDB(movie: <#T##MovieCoreDB#>)
-            completionHandler(true)
-        }
-//        delete.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [delete])
-    }
+//            completionHandler(true)
+//        }
+//        return UISwipeActionsConfiguration(actions: [delete])
+//    }
     
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {

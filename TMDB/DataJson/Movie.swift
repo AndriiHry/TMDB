@@ -26,8 +26,8 @@ struct Result: Codable {
     let originalLanguage: String
     let originalTitle: String?
     let overview: String
-    let posterPath: String?
-    let mediaType: MediaType?
+    var posterPath: String?
+    var mediaType: MediaType?
     let genreIDS: [Int]?
     let releaseDate: String?
     let voteAverage: Double

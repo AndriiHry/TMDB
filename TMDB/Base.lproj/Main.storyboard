@@ -217,6 +217,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
+                                            <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GQ9-Q9-zHk">
+                                                <rect key="frame" x="16" y="16" width="323" height="167.5"/>
+                                            </activityIndicatorView>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we1-Y6-v4N" userLabel="YouTube" customClass="YTPlayerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="199.5"/>
                                                 <color key="backgroundColor" red="0.20000001789999999" green="0.2588235438" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -229,15 +232,19 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.26008550740000003" green="0.3109102212" blue="0.3619678476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
+                                            <constraint firstItem="GQ9-Q9-zHk" firstAttribute="top" secondItem="iki-1c-pMG" secondAttribute="top" constant="16" id="3GZ-bd-kjf"/>
                                             <constraint firstAttribute="bottom" secondItem="60W-ly-74K" secondAttribute="bottom" id="7Bo-gc-jmp"/>
                                             <constraint firstAttribute="bottom" secondItem="we1-Y6-v4N" secondAttribute="bottom" id="Bvd-tb-gYf"/>
                                             <constraint firstAttribute="trailing" secondItem="we1-Y6-v4N" secondAttribute="trailing" id="EOf-uI-1I8"/>
                                             <constraint firstItem="we1-Y6-v4N" firstAttribute="top" secondItem="iki-1c-pMG" secondAttribute="top" id="EZ6-ta-RtS"/>
+                                            <constraint firstItem="GQ9-Q9-zHk" firstAttribute="leading" secondItem="iki-1c-pMG" secondAttribute="leading" constant="16" id="Fte-Wh-WLX"/>
+                                            <constraint firstAttribute="bottom" secondItem="GQ9-Q9-zHk" secondAttribute="bottom" constant="16" id="P2k-yF-0z5"/>
                                             <constraint firstItem="we1-Y6-v4N" firstAttribute="leading" secondItem="iki-1c-pMG" secondAttribute="leading" id="SYE-R8-bCo"/>
                                             <constraint firstAttribute="width" secondItem="iki-1c-pMG" secondAttribute="height" multiplier="16:9" id="ok5-JG-o0p"/>
                                             <constraint firstItem="60W-ly-74K" firstAttribute="top" secondItem="iki-1c-pMG" secondAttribute="top" id="onN-uE-fqT"/>
                                             <constraint firstAttribute="trailing" secondItem="60W-ly-74K" secondAttribute="trailing" id="p1e-AM-qmu"/>
                                             <constraint firstItem="60W-ly-74K" firstAttribute="leading" secondItem="iki-1c-pMG" secondAttribute="leading" id="ped-qi-itq"/>
+                                            <constraint firstAttribute="trailing" secondItem="GQ9-Q9-zHk" secondAttribute="trailing" constant="16" id="wJN-RQ-4dg"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -476,6 +483,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="GQ9-Q9-zHk" id="zxh-Xe-4qu"/>
                         <outlet property="avaregeStack" destination="FhH-iZ-57Q" id="HX7-hX-xaZ"/>
                         <outlet property="buttonImage" destination="4ad-hO-ZgI" id="t7w-mH-oQS"/>
                         <outlet property="collectionView" destination="EjG-ns-iLG" id="BUP-OF-ucc"/>
