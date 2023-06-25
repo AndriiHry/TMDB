@@ -50,6 +50,5 @@ extension ResultsTableController {
         let result = searchData[indexPath.row]
         resultDidSelected?(result)
     }
-
-
+    
 }

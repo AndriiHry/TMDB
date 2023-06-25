@@ -57,8 +57,8 @@ class DetailViewController: UIViewController {
     func loadDetailData(itemDetail: Result) {
         Task.init {
             do {
-                let details = try await networkController.loadDetailsFromId(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
-                self.videoData = try await networkController.loadVideoData(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                let details = try await networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                self.videoData = try await networkController.loadVideoDataWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
                 do {
                     let company = details?.productionCompanies.map { $0.name }
                     self.companyLabel.text = company?.joined(separator: " | ")
@@ -143,7 +143,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         self.youtubeView.delegate = self
         selectedItems.append(youtubeID)
         if let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell {
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.5) {
                 self.detailImageView.layer.opacity = 0.35
                 self.activityIndicator.layer.opacity = 1
                 cell.circleView.backgroundColor = .red
@@ -157,8 +157,16 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
 extension DetailViewController: YTPlayerViewDelegate {
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         self.youtubeView.playVideo()
-        UIView.animate(withDuration: 1, delay: 1) {
+        UIView.animate(withDuration: 0.5, delay: 1) {
             self.youtubeView.layer.opacity = 1
+        }
+    }
+    
+    func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
+        if state == .ended {
+                self.youtubeView.layer.opacity = 0
+                self.activityIndicator.layer.opacity = 0
+                self.detailImageView.layer.opacity = 1
         }
     }
 }

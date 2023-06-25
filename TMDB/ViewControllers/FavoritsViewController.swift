@@ -20,6 +20,8 @@ class FavoritsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        navigationController?.navigationBar.tintColor = .lightGray
         favoriteTableView.register(UINib(nibName: identifyNib, bundle: nil), forCellReuseIdentifier: identifyCell)
         loadData()
     }
@@ -89,7 +91,7 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifyCell, for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
         let item = myData[indexPath.row]
-        cell.configure(item: item)
+        cell.configure(for: item)
         return cell
     }
     
@@ -110,8 +112,8 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        AnimationTableView().cell(cell, forRowAt: indexPath)
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        AnimationTableView().cell(cell, forRowAt: indexPath)
+    }
     
 }

@@ -27,6 +27,10 @@ class HeadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+        navigationController?.navigationBar.tintColor = .lightGray
+        tabBarController?.overrideUserInterfaceStyle = .light
+        tabBarController?.tabBar.tintColor = UIColor(named: "title")
         searchControllerSetup()
         segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
         tableView.register(UINib(nibName: identHeadCell, bundle: nil), forCellReuseIdentifier: identHeadCell)
@@ -38,7 +42,6 @@ class HeadViewController: UIViewController {
         self.tableView.reloadData()
     }
 
-    
     //MARK: - Load data from URL with network controller
     private func load() {
         self.loadFavoriteCollection()
@@ -59,7 +62,7 @@ class HeadViewController: UIViewController {
         Task.init {
             do {
                 resultsTableController.searchData = try await
-                self.netwotkController.searchPage(typeVideo: netwotkController.typeVideo)
+                self.netwotkController.searchPageFor(typeVideo: netwotkController.typeVideo)
                 resultsTableController.tableViewSearchResult.reloadData()
             } catch {
                 print("Error loading search data: \(error)")
@@ -82,9 +85,9 @@ class HeadViewController: UIViewController {
         let search = UISearchController(searchResultsController: resultsTableController)
         search.searchBar.delegate = self
         search.searchResultsUpdater = self
-        search.searchBar.autocapitalizationType = .none
-        search.searchBar.tintColor = .white
+        search.searchBar.tintColor = .lightGray
         search.searchBar.searchTextField.textColor = .white
+        search.searchBar.barStyle = .black
         self.navigationItem.searchController = search
         definesPresentationContext = true
     }
@@ -123,7 +126,7 @@ class HeadViewController: UIViewController {
     }
     
     //MARK: - Load CoreData
-    func loadFavoriteCollection(){
+    func loadFavoriteCollection() {
         Task.init {
             do {
                 favoriteData = try await self.coreDataController.loadMoviesDB()
@@ -132,7 +135,6 @@ class HeadViewController: UIViewController {
             }
         }
     }
-    
     
 }
 // MARK: - End Class
@@ -168,12 +170,7 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identHeadCell, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
-        if favoriteData.contains(where: { $0.id == Int64(item.id) }) {
-            cell.heartImageView.layer.opacity = 1
-        } else {
-            cell.heartImageView.layer.opacity = 0
-        }
-        cell.configure(item: item)
+        cell.configure(for: item, and: favoriteData)
         return cell
     }
     
@@ -194,14 +191,15 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         return UISwipeActionsConfiguration(actions: [move])
     }
     
-//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self](action, view, completionHandler) in
-//            self?.coreDataController.deleteFromDB(movie: <#T##MovieCoreDB#>)
-//            completionHandler(true)
-//        }
-//        return UISwipeActionsConfiguration(actions: [delete])
-//    }
-    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete ♡") { [weak self](action, view, completionHandler) in
+            if let movie = self?.favoriteData.first(where: { $0.id == Int64(self!.jsnData[indexPath.row].id) }){
+                self?.coreDataController.deleteFromDB(movie: movie)
+            }
+            completionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if let lastIndexPath = indexPaths.last, lastIndexPath.row == jsnData.count - 1 {
@@ -209,8 +207,8 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
         }
     }
     
-    //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    //        AnimationTableView().cell(cell, forRowAt: indexPath)
-    //    }
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+                AnimationTableView().cell(cell, forRowAt: indexPath)
+        }
     
 }

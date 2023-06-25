@@ -11,7 +11,7 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet var favoriteImage: UIImageView!
     @IBOutlet var favoriteTitle: UILabel!
     
-    func configure(item: MovieCoreDB) {
+    func configure(for item: MovieCoreDB) {
         self.favoriteTitle.text = item.title
         TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.favoriteImage)
     }

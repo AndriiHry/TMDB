@@ -103,7 +103,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hhy-nW-HaP">
                                         <rect key="frame" x="0.0" y="1.6666666666666643" width="17.666666666666668" height="21.000000000000004"/>
-                                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                                        <color key="tintColor" name="subTitle"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="ebR-kB-vKS"/>
                                         </constraints>
@@ -111,7 +111,7 @@
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VUJ-kW-H7s">
                                         <rect key="frame" x="17.666666666666657" y="1.6666666666666643" width="17.666666666666671" height="21.000000000000004"/>
-                                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                                        <color key="tintColor" name="subTitle"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="12D-Qe-af0"/>
                                         </constraints>
@@ -119,7 +119,7 @@
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-5W-iHn">
                                         <rect key="frame" x="35.333333333333343" y="1.6666666666666643" width="17.666666666666671" height="21.000000000000004"/>
-                                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                                        <color key="tintColor" name="subTitle"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="41M-TM-Q7b"/>
                                         </constraints>
@@ -181,9 +181,6 @@
         </namedColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

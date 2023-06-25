@@ -29,7 +29,7 @@ class HeadTableViewCell: UITableViewCell {
     func loadDetailData(itemDetail: Result) {
         Task {
             do {
-                let details = try await networkController.loadDetailsFromId(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                let details = try await networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
                 do {
                     self.countriesLabel.text = details?.origCountr
                     let genres = details?.genres.map { $0.name }
@@ -42,7 +42,13 @@ class HeadTableViewCell: UITableViewCell {
     }
         
     // MARK: - Configure
-    func configure(item: Result) {
+    func configure(for item: Result, and favorits: [MovieCoreDB]) {
+        
+        if favorits.contains(where: { $0.id == Int64(item.id) }) {
+            self.heartImageView.layer.opacity = 1
+        } else {
+            self.heartImageView.layer.opacity = 0
+        }
         
         loadDetailData(itemDetail: item)
         
