@@ -37,9 +37,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = detailData.nameTitle
-        navigationController?.isNavigationBarHidden = true
-        navigationItem.largeTitleDisplayMode = .never
+        navigationItemStyle()
         configureDetail(item: detailData)
     }
     
@@ -54,7 +52,7 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: - Load anower data from ID
-    func loadDetailData(itemDetail: Result) {
+    private func loadDetailData(itemDetail: Result) {
         Task.init {
             do {
                 let details = try await networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
@@ -95,6 +93,13 @@ class DetailViewController: UIViewController {
                 isActive = false
             }
         }
+    }
+    
+    //MARK: - Navigation Controller Item setup
+    private func navigationItemStyle() {
+        self.title = detailData.nameTitle
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.largeTitleDisplayMode = .never
     }
     
     // MARK: - Save Button

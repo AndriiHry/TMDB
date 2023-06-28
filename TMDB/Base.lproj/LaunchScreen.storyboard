@@ -17,19 +17,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoAlpha" translatesAutoresizingMaskIntoConstraints="NO" id="wAC-hw-LqV">
-                                <rect key="frame" x="32" y="261.66666666666669" width="329" height="329.00000000000006"/>
+                                <rect key="frame" x="21.666666666666657" y="251" width="350" height="350"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="wAC-hw-LqV" secondAttribute="height" multiplier="1:1" id="x4I-um-sof"/>
+                                    <constraint firstAttribute="height" constant="350" id="76X-V3-oqf"/>
+                                    <constraint firstAttribute="width" constant="350" id="j00-A9-a7Q"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="BG"/>
                         <constraints>
-                            <constraint firstItem="wAC-hw-LqV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="BDR-Cw-sad"/>
-                            <constraint firstItem="wAC-hw-LqV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="BTR-Pa-lUK"/>
-                            <constraint firstItem="wAC-hw-LqV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="H3y-DZ-nJC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wAC-hw-LqV" secondAttribute="trailing" constant="32" id="IzV-0u-a3V"/>
+                            <constraint firstItem="wAC-hw-LqV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="DFW-Q8-VNm"/>
+                            <constraint firstItem="wAC-hw-LqV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fbC-Sc-EEt"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -41,7 +40,7 @@
     <resources>
         <image name="logoAlpha" width="1024" height="1024"/>
         <namedColor name="BG">
-            <color red="0.20000000298023224" green="0.25900000333786011" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.20000000000000001" green="0.25882352941176473" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

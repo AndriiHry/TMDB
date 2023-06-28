@@ -72,22 +72,59 @@
                                     <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="GeZ-Fn-v1N"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VA3-oq-tHc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoAlpha" translatesAutoresizingMaskIntoConstraints="NO" id="xGp-QP-bKr">
+                                        <rect key="frame" x="12.5" y="158.5" width="350" height="350"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="350" id="dE3-Wf-eQa"/>
+                                            <constraint firstAttribute="width" constant="350" id="rwd-6A-WkP"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="McV-tY-hyU" customClass="LottieAnimationView" customModule="Lottie">
+                                        <rect key="frame" x="37.5" y="454" width="300" height="75"/>
+                                        <color key="backgroundColor" name="BG"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="8tR-pe-1wY"/>
+                                            <constraint firstAttribute="width" constant="300" id="PqC-zU-4xj"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="moviesTitleAnimation"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="Tie-Dc-zJd"/>
+                                <color key="backgroundColor" name="BG"/>
+                                <constraints>
+                                    <constraint firstItem="McV-tY-hyU" firstAttribute="top" secondItem="xGp-QP-bKr" secondAttribute="bottom" constant="-54.5" id="HAI-mY-kaY"/>
+                                    <constraint firstItem="xGp-QP-bKr" firstAttribute="centerX" secondItem="VA3-oq-tHc" secondAttribute="centerX" id="Qow-SO-X2O"/>
+                                    <constraint firstItem="McV-tY-hyU" firstAttribute="centerX" secondItem="VA3-oq-tHc" secondAttribute="centerX" id="TJI-d1-dl1"/>
+                                    <constraint firstItem="xGp-QP-bKr" firstAttribute="centerY" secondItem="Tie-Dc-zJd" secondAttribute="centerY" constant="-7.5" id="ii0-OB-oPi"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BPv-0w-Jn0"/>
                         <color key="backgroundColor" name="BG"/>
                         <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="VA3-oq-tHc" secondAttribute="bottom" id="2om-RE-TJF"/>
                             <constraint firstItem="woF-Xw-1kO" firstAttribute="leading" secondItem="BPv-0w-Jn0" secondAttribute="leading" id="8fX-oJ-Yw2"/>
                             <constraint firstAttribute="bottom" secondItem="woF-Xw-1kO" secondAttribute="bottom" id="G18-Gc-UZQ"/>
                             <constraint firstItem="n1c-p6-k66" firstAttribute="top" secondItem="BPv-0w-Jn0" secondAttribute="top" id="GZ3-NY-3QW"/>
+                            <constraint firstItem="VA3-oq-tHc" firstAttribute="trailing" secondItem="BPv-0w-Jn0" secondAttribute="trailing" id="Ljt-SZ-wRg"/>
+                            <constraint firstItem="VA3-oq-tHc" firstAttribute="leading" secondItem="BPv-0w-Jn0" secondAttribute="leading" id="hme-nl-pFZ"/>
                             <constraint firstItem="woF-Xw-1kO" firstAttribute="top" secondItem="n1c-p6-k66" secondAttribute="bottom" id="kRp-ct-AnF"/>
                             <constraint firstItem="n1c-p6-k66" firstAttribute="centerX" secondItem="vaT-13-BUV" secondAttribute="centerX" id="o8v-sI-8Bm"/>
+                            <constraint firstItem="VA3-oq-tHc" firstAttribute="top" secondItem="vaT-13-BUV" secondAttribute="top" id="pzj-yi-OPN"/>
                             <constraint firstItem="BPv-0w-Jn0" firstAttribute="trailing" secondItem="woF-Xw-1kO" secondAttribute="trailing" id="qFS-OW-93i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Top Movies" largeTitleDisplayMode="never" id="NCe-Le-DmO"/>
                     <connections>
+                        <outlet property="animationView" destination="McV-tY-hyU" id="ms9-dh-fRT"/>
                         <outlet property="headImage" destination="LeN-xc-eNy" id="0lU-P2-6Sk"/>
+                        <outlet property="launchView" destination="VA3-oq-tHc" id="UNL-KA-VXz"/>
                         <outlet property="segmentControll" destination="n1c-p6-k66" id="634-1W-ie2"/>
                         <outlet property="tableView" destination="woF-Xw-1kO" id="2zr-mf-jsn"/>
                     </connections>
@@ -596,6 +633,7 @@
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="logo" width="156" height="156"/>
+        <image name="logoAlpha" width="1024" height="1024"/>
         <image name="popcorn.fill" catalog="system" width="102" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

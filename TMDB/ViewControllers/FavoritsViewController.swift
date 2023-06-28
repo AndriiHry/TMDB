@@ -19,9 +19,7 @@ class FavoritsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
-        navigationController?.navigationBar.tintColor = .lightGray
+        navigationItemStyle()
         favoriteTableView.register(UINib(nibName: identifyNib, bundle: nil), forCellReuseIdentifier: identifyCell)
         loadData()
     }
@@ -45,7 +43,7 @@ class FavoritsViewController: UIViewController {
     }
     
     // MARK: - Setup Detail VC
-    func showDetail(for data: MovieCoreDB) {
+    private func showDetail(for data: MovieCoreDB) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identifyDetailVC) as? DetailViewController else { return }
         let dataModify: Result = {
             Result(
@@ -69,6 +67,12 @@ class FavoritsViewController: UIViewController {
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
+    //MARK: - Navigation Controller Item setup
+    private func navigationItemStyle() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        navigationController?.navigationBar.tintColor = .lightGray
+    }
 }
 // MARK: - End Class
 

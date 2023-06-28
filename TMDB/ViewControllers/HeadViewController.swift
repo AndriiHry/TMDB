@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Lottie
 
 class HeadViewController: UIViewController {
     
+    @IBOutlet var launchView: UIView!
+    @IBOutlet var animationView: LottieAnimationView!
     @IBOutlet var segmentControll: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var headImage: UIImageView!
@@ -27,14 +30,25 @@ class HeadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overrideUserInterfaceStyle = .light
-        navigationController?.navigationBar.tintColor = .lightGray
-        tabBarController?.overrideUserInterfaceStyle = .light
-        tabBarController?.tabBar.tintColor = UIColor(named: "title")
-        searchControllerSetup()
-        segmentControll.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
-        tableView.register(UINib(nibName: identHeadCell, bundle: nil), forCellReuseIdentifier: identHeadCell)
-        load()
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = true
+        self.tableView.register(UINib(nibName: self.identHeadCell, bundle: nil), forCellReuseIdentifier: self.identHeadCell)
+        self.load()
+        animationView.loopMode = .playOnce
+        animationView.animationSpeed = 1.0
+        animationView.play()
+        UIView.animate(withDuration: 0.5, delay: 3.5) {
+            self.launchView.alpha = 0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+//            self.navigationController?.isNavigationBarHidden = false
+            self.navigationController?.tabBarController?.tabBar.isHidden = false
+
+            self.navigationItemStyle()
+            self.searchControllerSetup()
+            self.segmentControll.addTarget(self, action: #selector(self.segmentAction), for: .valueChanged)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +84,25 @@ class HeadViewController: UIViewController {
         }
     }
     
+    //MARK: - Load CoreData
+    private func loadFavoriteCollection() {
+        Task.init {
+            do {
+                favoriteData = try await self.coreDataController.loadMoviesDB()
+            } catch {
+                print("Error loading Favorite data: \(error)")
+            }
+        }
+    }
+    
+    //MARK: - Navigation Controller Item setup
+    private func navigationItemStyle() {
+        self.overrideUserInterfaceStyle = .light
+        self.navigationController?.navigationBar.tintColor = .lightGray
+        self.tabBarController?.overrideUserInterfaceStyle = .light
+        self.tabBarController?.tabBar.tintColor = UIColor(named: "title")
+    }
+        
     //MARK: - Search controller setup
     func searchControllerSetup() {
         resultsTableController =
@@ -125,17 +158,6 @@ class HeadViewController: UIViewController {
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    //MARK: - Load CoreData
-    func loadFavoriteCollection() {
-        Task.init {
-            do {
-                favoriteData = try await self.coreDataController.loadMoviesDB()
-            } catch {
-                print("Error loading Favorite data: \(error)")
-            }
-        }
-    }
-    
 }
 // MARK: - End Class
 
@@ -145,7 +167,6 @@ extension HeadViewController: CoreDataControllerDelegate {
         load()
     }
 }
-
 
 //MARK: - Search results
 extension HeadViewController: UISearchResultsUpdating, UISearchBarDelegate {
