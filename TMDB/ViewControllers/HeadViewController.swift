@@ -20,10 +20,6 @@ class HeadViewController: UIViewController {
     let netwotkController = NetworkController()
     let coreDataController = CoreDataController.shared
     
-    let identHeadCell: String = "HeadTableViewCell"
-    let identResultsVC: String = "ResultsTableController"
-    let identDetailVC: String = "DetailViewController"
-    
     var jsnData: [Result] = []
     var favoriteData: [MovieCoreDB] = []
     var timer: Timer?
@@ -32,7 +28,8 @@ class HeadViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
         navigationController?.tabBarController?.tabBar.isHidden = true
-        self.tableView.register(UINib(nibName: self.identHeadCell, bundle: nil), forCellReuseIdentifier: self.identHeadCell)
+        self.tableView.register(UINib(nibName: Constants.identHeadCell, bundle: nil),
+                                forCellReuseIdentifier: Constants.identHeadCell)
         self.load()
         animationView.loopMode = .playOnce
         animationView.animationSpeed = 1.0
@@ -42,9 +39,7 @@ class HeadViewController: UIViewController {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-//            self.navigationController?.isNavigationBarHidden = false
             self.navigationController?.tabBarController?.tabBar.isHidden = false
-
             self.navigationItemStyle()
             self.searchControllerSetup()
             self.segmentControll.addTarget(self, action: #selector(self.segmentAction), for: .valueChanged)
@@ -106,7 +101,7 @@ class HeadViewController: UIViewController {
     //MARK: - Search controller setup
     func searchControllerSetup() {
         resultsTableController =
-        self.storyboard?.instantiateViewController(withIdentifier: identResultsVC) as? ResultsTableController
+        self.storyboard?.instantiateViewController(withIdentifier: Constants.identResultsVC) as? ResultsTableController
         resultsTableController.tableView.delegate = resultsTableController
         resultsTableController.tableView.dataSource = resultsTableController
         resultsTableController.resultDidSelected = { [weak self] itemResult in
@@ -153,7 +148,8 @@ class HeadViewController: UIViewController {
     
     //MARK: - Setup Detail VC
     func showDetail(for data: Result) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identDetailVC) as? DetailViewController else { return }
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: Constants.identDetailVC)
+                as? DetailViewController else { return }
         detailVC.detailData = data
         navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -189,7 +185,8 @@ extension HeadViewController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identHeadCell, for: indexPath) as? HeadTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identHeadCell, for: indexPath)
+                as? HeadTableViewCell else {return UITableViewCell()}
         let item = jsnData[indexPath.row]
         cell.configure(for: item, and: favoriteData)
         return cell

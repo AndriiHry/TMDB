@@ -13,14 +13,11 @@ class FavoritsViewController: UIViewController {
     
     let coreDataController = CoreDataController.shared
     var myData:[MovieCoreDB] = []
-    let identifyNib = "MovieTableViewCell"
-    let identifyCell = "FavoritesTableCell"
-    let identifyDetailVC = "DetailViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItemStyle()
-        favoriteTableView.register(UINib(nibName: identifyNib, bundle: nil), forCellReuseIdentifier: identifyCell)
+        favoriteTableView.register(UINib(nibName: Constants.identFavorNib, bundle: nil), forCellReuseIdentifier: Constants.identFavorCell)
         loadData()
     }
     
@@ -44,7 +41,7 @@ class FavoritsViewController: UIViewController {
     
     // MARK: - Setup Detail VC
     private func showDetail(for data: MovieCoreDB) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: identifyDetailVC) as? DetailViewController else { return }
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: Constants.identDetailVC) as? DetailViewController else { return }
         let dataModify: Result = {
             Result(
                    backdropPath: data.backdropPath,
@@ -93,7 +90,7 @@ extension FavoritsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifyCell, for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identFavorCell, for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
         let item = myData[indexPath.row]
         cell.configure(for: item)
         return cell

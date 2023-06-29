@@ -10,7 +10,7 @@ import SDWebImage
 
 class TryLoadImage {
     func tryLoadImage(from url: String?, to image: UIImageView) {
-        let urlString = "https://image.tmdb.org/t/p/original\(url ?? "")"
+        let urlString = "\(Constants.imageUrl)\(url ?? "")"
         if url == nil {
             image.image = UIImage(named: "noimage")
         } else {

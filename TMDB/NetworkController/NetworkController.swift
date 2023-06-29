@@ -10,14 +10,13 @@ import Foundation
 class NetworkController {
     let session = URLSession.shared
     let decoder = JSONDecoder()
-    let apiKey: String = "7ca2617d325e2e18b7ba1914513ef1f4"
     var typeVideo: String = "movie"
     var query: String = ""
     var pageLoaded: Int = 1
     
     //MARK: - load main data from url
     func loadPage(page: Int = 1) async throws -> [Result] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/trending/\(typeVideo)/day?api_key=\(apiKey)&page=\(page)")
+        guard let url = URL(string: "\(Constants.starttUrl)trending/\(typeVideo)/day?api_key=\(Constants.api)&page=\(page)")
         else
         {
             print("Errore Load URL")
@@ -40,7 +39,7 @@ class NetworkController {
     
     //MARK: - search data from searchTcontroller in navigation
     func searchPageFor(typeVideo: String) async throws -> [Result] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/\(typeVideo)?query=\(query)&api_key=\(apiKey)")
+        guard let url = URL(string: "\(Constants.starttUrl)search/\(typeVideo)?query=\(query)&api_key=\(Constants.api)")
         else
         {
             print("Errore Search URL")
@@ -55,7 +54,7 @@ class NetworkController {
     
     //MARK: -  load details from video ID tv or movie
     func loadDetailsWith(id: Int, typeVideo: String) async throws -> DetailsData? {
-        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)?&api_key=\(apiKey)")
+        guard let url = URL(string: "\(Constants.starttUrl)\(typeVideo)/\(id)?&api_key=\(Constants.api)")
         else
         {
             print("Errore detail ID URL")
@@ -70,7 +69,7 @@ class NetworkController {
     
     //MARK: -load youtube videID from main ID
     func loadVideoDataWith(id: Int, typeVideo: String) async throws -> [VideData] {
-        guard let url = URL(string: "https://api.themoviedb.org/3/\(typeVideo)/\(id)/videos?&api_key=\(apiKey)")
+        guard let url = URL(string: "\(Constants.starttUrl)\(typeVideo)/\(id)/videos?&api_key=\(Constants.api)")
         else
         {
             print("Errore Load Video Data from ID")

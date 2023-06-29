@@ -31,7 +31,6 @@ class DetailViewController: UIViewController {
     let coreDataController = CoreDataController.shared
     var videoData: [VideData] = []
     var detailData: Result!
-    let identify: String = "CustomCollectionViewCell"
     var isActive: Bool = false
     var selectedItems: [String] = []
     
@@ -55,8 +54,10 @@ class DetailViewController: UIViewController {
     private func loadDetailData(itemDetail: Result) {
         Task.init {
             do {
-                let details = try await networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
-                self.videoData = try await networkController.loadVideoDataWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                let details = try await
+                networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                self.videoData = try await
+                networkController.loadVideoDataWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
                 do {
                     let company = details?.productionCompanies.map { $0.name }
                     self.companyLabel.text = company?.joined(separator: " | ")
@@ -87,10 +88,10 @@ class DetailViewController: UIViewController {
             let favoriteCollection = try await coreDataController.loadMoviesDB()
             if favoriteCollection.contains(where: { $0.id == Int64(item.id) }) {
                 buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                isActive = true
+                isActive = false
             } else {
                 buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
-                isActive = false
+                isActive = true
             }
         }
     }
@@ -104,6 +105,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Save Button
     @IBAction func savePressedButton(_ sender: Any) {
+        isActive.toggle()
         switch isActive {
         case true:
             buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -130,7 +132,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identify, for: indexPath) as? CustomCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.identCollCell, for: indexPath) as? CustomCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.videoLabel.text = videoData[indexPath.row].type

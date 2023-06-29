@@ -17,12 +17,10 @@ class ResultsTableController: UITableViewController {
     
     var searchData:[Result] = []
     typealias ResultSelected = (Result) -> ()
-    let identifyResultCell: String = "ResultTableViewCell"
-    let identifyDetailVC: String = "DetailViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewSearchResult.register(UINib(nibName: identifyResultCell, bundle: nil), forCellReuseIdentifier: identifyResultCell)
+        tableViewSearchResult.register(UINib(nibName: Constants.identResultCell, bundle: nil), forCellReuseIdentifier: Constants.identResultCell)
     }
     
 }
