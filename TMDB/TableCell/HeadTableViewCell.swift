@@ -55,13 +55,13 @@ class HeadTableViewCell: UITableViewCell {
         self.headTitle.text = item.nameTitle
         self.reliseLabel.text = String(item.airReleaseDate.prefix(4))
         
-        RatingStars().ratingStars(for: item.voteAverage,
+        Rating().stars(for: item.voteAverage,
                                   self.star1AvarageLogo,
                                   self.star2AvarageLogo,
                                   self.star3AvarageLogo,
                                   label: self.poularityLabel)
         
-        TryLoadImage().tryLoadImage(from: item.posterPath, to: self.headImage)
+        TryLoad().picture(from: item.posterPath, to: self.headImage)
     }
     
 }

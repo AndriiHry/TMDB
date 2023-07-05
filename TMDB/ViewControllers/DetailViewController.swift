@@ -55,9 +55,9 @@ class DetailViewController: UIViewController {
         Task.init {
             do {
                 let details = try await
-                networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                networkController.loadDetailsWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? Constants.movie)
                 self.videoData = try await
-                networkController.loadVideoDataWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? "movie")
+                networkController.loadVideoDataWith(id: itemDetail.id, typeVideo: itemDetail.mediaType?.rawValue ?? Constants.movie)
                 do {
                     let company = details?.productionCompanies.map { $0.name }
                     self.companyLabel.text = company?.joined(separator: " | ")
@@ -78,19 +78,19 @@ class DetailViewController: UIViewController {
         self.detailTitleLabel.text = item.origTitle
         self.overviewLabel.text = item.overview
         self.reliseLabel.text = String(item.airReleaseDate.replacingOccurrences(of: "-", with: "."))
-        RatingStars().ratingStars(for: item.voteAverage,
+        Rating().stars(for: item.voteAverage,
                                   self.star1AvarageLogo,
                                   self.star2AvarageLogo,
                                   self.star3AvarageLogo,
                                   label: self.poularityLabel)
-        TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.detailImageView)
+        TryLoad().picture(from: item.backdropPath, to: self.detailImageView)
         Task.init {
             let favoriteCollection = try await coreDataController.loadMoviesDB()
             if favoriteCollection.contains(where: { $0.id == Int64(item.id) }) {
-                buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                buttonImage.setImage(UIImage(systemName: Constants.heartFill), for: .normal)
                 isActive = false
             } else {
-                buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+                buttonImage.setImage(UIImage(systemName: Constants.heart), for: .normal)
                 isActive = true
             }
         }
@@ -108,7 +108,7 @@ class DetailViewController: UIViewController {
         isActive.toggle()
         switch isActive {
         case true:
-            buttonImage.setImage(UIImage(systemName: "heart"), for: .normal)
+            buttonImage.setImage(UIImage(systemName: Constants.heart), for: .normal)
             Task.init {
                 let favoriteCollection = try await coreDataController.loadMoviesDB()
                 if let movieToDelete = favoriteCollection.first(where: { $0.id == Int64(detailData.id) }) {
@@ -116,7 +116,7 @@ class DetailViewController: UIViewController {
                 }
             }
         case false:
-            buttonImage.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            buttonImage.setImage(UIImage(systemName: Constants.heartFill), for: .normal)
             coreDataController.saveMoviesDB(movies: detailData)
         }
     }

@@ -13,7 +13,7 @@ class MovieTableViewCell: UITableViewCell {
     
     func configure(for item: MovieCoreDB) {
         self.favoriteTitle.text = item.title
-        TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.favoriteImage)
+        TryLoad().picture(from: item.backdropPath, to: self.favoriteImage)
     }
     
 }

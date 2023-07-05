@@ -8,8 +8,8 @@
 import UIKit
 import SDWebImage
 
-class TryLoadImage {
-    func tryLoadImage(from url: String?, to image: UIImageView) {
+class TryLoad {
+    func picture(from url: String?, to image: UIImageView) {
         let urlString = "\(Constants.imageUrl)\(url ?? "")"
         if url == nil {
             image.image = UIImage(named: "noimage")

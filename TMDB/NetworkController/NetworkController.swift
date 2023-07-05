@@ -10,7 +10,7 @@ import Foundation
 class NetworkController {
     let session = URLSession.shared
     let decoder = JSONDecoder()
-    var typeVideo: String = "movie"
+    var typeVideo: String = Constants.movie
     var query: String = ""
     var pageLoaded: Int = 1
     

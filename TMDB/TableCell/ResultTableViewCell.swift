@@ -13,7 +13,7 @@ class ResultTableViewCell: UITableViewCell {
     
     func configureSearchResults(item: Result) {
         self.resultTitleLabel.text = item.nameTitle
-        TryLoadImage().tryLoadImage(from: item.backdropPath, to: self.resultImageView)
+        TryLoad().picture(from: item.backdropPath, to: self.resultImageView)
     }
     
 }

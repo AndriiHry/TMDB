@@ -51,7 +51,7 @@ class FavoritsViewController: UIViewController {
                    originalTitle: data.originalTitle,
                    overview: data.overview ?? "",
                    posterPath: "",
-                   mediaType: .init(rawValue: data.mediaType ?? "movie"),
+                   mediaType: .init(rawValue: data.mediaType ?? Constants.movie),
                    genreIDS: [],
                    releaseDate: data.reliseData,
                    voteAverage: data.voteAverage,

@@ -39,7 +39,6 @@ class HeadViewController: UIViewController {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-            self.navigationController?.tabBarController?.tabBar.isHidden = false
             self.navigationItemStyle()
             self.searchControllerSetup()
             self.segmentControll.addTarget(self, action: #selector(self.segmentAction), for: .valueChanged)
@@ -57,7 +56,7 @@ class HeadViewController: UIViewController {
         Task.init {
             do {
                 self.jsnData += try await netwotkController.loadNextPage()
-                TryLoadImage().tryLoadImage(from: self.jsnData.first?.backdropPath, to: self.headImage)
+                TryLoad().picture(from: self.jsnData.first?.backdropPath, to: self.headImage)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -92,6 +91,7 @@ class HeadViewController: UIViewController {
     
     //MARK: - Navigation Controller Item setup
     private func navigationItemStyle() {
+        self.navigationController?.tabBarController?.tabBar.isHidden = false
         self.overrideUserInterfaceStyle = .light
         self.navigationController?.navigationBar.tintColor = .lightGray
         self.tabBarController?.overrideUserInterfaceStyle = .light
@@ -106,7 +106,7 @@ class HeadViewController: UIViewController {
         resultsTableController.tableView.dataSource = resultsTableController
         resultsTableController.resultDidSelected = { [weak self] itemResult in
             var updateResult = itemResult
-            updateResult.mediaType = .init(rawValue: self?.netwotkController.typeVideo ?? "movie")
+            updateResult.mediaType = .init(rawValue: self?.netwotkController.typeVideo ?? Constants.movie)
             self?.showDetail(for: updateResult)
         }
         resultsTableController.parentNavigationController = navigationController
@@ -123,8 +123,8 @@ class HeadViewController: UIViewController {
     //MARK: - Segmented controller action setup
     @objc func segmentAction(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0: netwotkController.typeVideo = "movie"
-        case 1: netwotkController.typeVideo = "tv"
+        case 0: netwotkController.typeVideo = Constants.movie
+        case 1: netwotkController.typeVideo = Constants.tv
         default: break
         }
         let headTitle =  sender.titleForSegment(at: sender.selectedSegmentIndex) ?? "Movies"
@@ -139,11 +139,11 @@ class HeadViewController: UIViewController {
                 self.jsnData.removeAll()
                 self.netwotkController.pageLoaded = 1
                 self.load()
+                UITableView.animate(withDuration: 0.25) {
+                    self.tableView.alpha = 1
+                }
             }
         )
-        UITableView.animate(withDuration: 0.75, delay: 0.01) {
-            self.tableView.alpha = 1
-        }
     }
     
     //MARK: - Setup Detail VC
