@@ -1,6 +1,7 @@
 # TMDB
 <div style="width: 50%; height: 50%">
 ![scr1](https://github.com/AndriiHry/TMDB/assets/132136175/0e16f2e7-e461-4ef4-8398-ac538546c630)
+  </div>
 ![scr2](https://github.com/AndriiHry/TMDB/assets/132136175/56f2b84a-33ac-48c3-888a-5624bee84217)
 ![scr3](https://github.com/AndriiHry/TMDB/assets/132136175/047f0e77-bfee-4f5a-8751-c24d165c2a03)
 ![scr4](https://github.com/AndriiHry/TMDB/assets/132136175/82cf46cf-b465-46a2-8699-0c5629b27029)
