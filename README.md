@@ -1,4 +1,5 @@
 # TMDB
+<div style="width: 50%; height: 50%">
 ![scr1](https://github.com/AndriiHry/TMDB/assets/132136175/0e16f2e7-e461-4ef4-8398-ac538546c630)
 ![scr2](https://github.com/AndriiHry/TMDB/assets/132136175/56f2b84a-33ac-48c3-888a-5624bee84217)
 ![scr3](https://github.com/AndriiHry/TMDB/assets/132136175/047f0e77-bfee-4f5a-8751-c24d165c2a03)
@@ -9,3 +10,4 @@
 ![scr8](https://github.com/AndriiHry/TMDB/assets/132136175/2163b162-7d3e-43a3-85d2-78fa82aa66c6)
 ![scr9](https://github.com/AndriiHry/TMDB/assets/132136175/3efabd42-e095-4c5a-9d03-0878040b4bef)
 ![scr10](https://github.com/AndriiHry/TMDB/assets/132136175/f5165db2-04dd-4b84-b981-ef397bd028d7)
+</div>
